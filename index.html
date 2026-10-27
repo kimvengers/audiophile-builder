@@ -60,8 +60,20 @@
         .control-group { display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
         .label { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold; }
         select { padding: 9px; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 4px; font-size: 0.88rem; cursor: pointer; }
-        input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; margin-top: 5px; }
-        .price-display { font-size: 0.95rem; font-weight: bold; color: var(--accent); text-align: right; min-width: 105px; }
+        
+        /* Slider + / - Button Controls */
+        .slider-wrapper { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+        .slider-wrapper input[type=range] { flex-grow: 1; accent-color: var(--accent); cursor: pointer; margin: 0; }
+        .step-btn {
+            background: #222; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px;
+            width: 28px; height: 28px; font-size: 1.1rem; font-weight: bold; line-height: 1;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s; flex-shrink: 0; user-select: none;
+        }
+        .step-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 8px var(--accent-glow); }
+        .step-btn:active { transform: scale(0.94); }
+
+        .price-display { font-size: 0.95rem; font-weight: bold; color: var(--accent); text-align: right; min-width: 115px; }
         .action-btn { background: var(--accent); color: #000; font-weight: bold; padding: 10px 18px; border: none; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; font-size: 0.85rem; }
         .action-btn:hover { background: #fff; box-shadow: 0 0 10px var(--accent); }
         #catalog-grid-container { flex-grow: 1; overflow-y: auto; padding-right: 5px; }
@@ -161,10 +173,15 @@
 
     <div id="catalog-panel">
         <div class="controls-row">
+            <!-- 1. Auto Build Budget Tool with + / - $1,000 Buttons -->
             <div class="control-panel">
                 <div class="control-group" style="flex-grow: 2;">
-                    <label class="label">1. Auto-Build System by Target Budget ($1.5k - $5M)</label>
-                    <input type="range" id="budget-slider" min="1500" max="5000000" step="1000" value="50000">
+                    <label class="label">1. Auto-Build System by Target Budget ($1k - $5M, ±$1,000)</label>
+                    <div class="slider-wrapper">
+                        <button class="step-btn" onclick="adjustBudget(-1000)" title="Decrease by $1,000">−</button>
+                        <input type="range" id="budget-slider" min="1000" max="5000000" step="1000" value="50000">
+                        <button class="step-btn" onclick="adjustBudget(1000)" title="Increase by $1,000">+</button>
+                    </div>
                 </div>
                 <div class="control-group" style="min-width: 135px;">
                     <label class="label">Auto Synergy</label>
@@ -178,10 +195,16 @@
                 <div class="price-display">Target:<br><span id="target-budget-display">$50,000</span></div>
                 <button class="action-btn" onclick="autoBuildSystem()" style="margin-top: 14px;">Build It</button>
             </div>
+
+            <!-- 2. Individual Selection Filters with + / - $1,000 Buttons -->
             <div class="control-panel">
                 <div class="control-group" style="flex-grow: 2;">
-                    <label class="label">2. Component Max Price Filter ($100 - $1M)</label>
-                    <input type="range" id="price-slider" min="100" max="1000000" step="500" value="1000000">
+                    <label class="label">2. Component Max Price Filter ($100 - $1M, ±$1,000)</label>
+                    <div class="slider-wrapper">
+                        <button class="step-btn" onclick="adjustPriceFilter(-1000)" title="Decrease by $1,000">−</button>
+                        <input type="range" id="price-slider" min="100" max="1000000" step="100" value="1000000">
+                        <button class="step-btn" onclick="adjustPriceFilter(1000)" title="Increase by $1,000">+</button>
+                    </div>
                 </div>
                 <div class="price-display">Max Filter:<br><span id="price-range-display">Up to $1,000,000</span></div>
                 <div class="control-group" style="min-width: 110px;">
@@ -397,6 +420,31 @@
         const autoGenreSelect = document.getElementById('auto-genre-select');
         const listView = document.getElementById('list-view');
 
+        // $1,000 Button Adjustment Functions
+        function adjustBudget(delta) {
+            let current = parseInt(budgetSlider.value);
+            let min = parseInt(budgetSlider.min);
+            let max = parseInt(budgetSlider.max);
+            let next = Math.min(max, Math.max(min, current + delta));
+            budgetSlider.value = next;
+            targetBudgetDisplay.innerText = '$' + next.toLocaleString();
+        }
+
+        function adjustPriceFilter(delta) {
+            let current = parseInt(priceSlider.value);
+            let min = parseInt(priceSlider.min);
+            let max = parseInt(priceSlider.max);
+            let next;
+            if (current < 1000 && delta > 0) {
+                next = 1000;
+            } else {
+                next = Math.min(max, Math.max(min, current + delta));
+            }
+            priceSlider.value = next;
+            priceRangeDisplay.innerText = 'Up to $' + next.toLocaleString();
+            renderCatalog();
+        }
+
         function init() {
             generateWeeklyCatalog();
             priceSlider.addEventListener('input', (e) => {
@@ -442,9 +490,6 @@
         function selectCategory(index) {
             activeCategoryIndex = index;
             currentCategoryLabel.innerText = categories[index];
-            const cableCategories = [8, 9, 10, 11, 12, 14];
-            if (cableCategories.includes(index)) { priceSlider.min = 50; priceSlider.step = 100; }
-            else { priceSlider.min = 100; priceSlider.step = 500; }
             priceRangeDisplay.innerText = 'Up to $' + parseInt(priceSlider.value).toLocaleString();
             updateVisualSystem(); renderCatalog(); renderListView();
         }
@@ -485,7 +530,7 @@
             const filteredProducts = db.filter(item => item[0] === activeCategoryIndex && item[2] <= maxPrice && (selectedBrand === 'all' || item[1].toLowerCase().includes(selectedBrand.toLowerCase())));
 
             if (filteredProducts.length === 0) {
-                catalogGrid.innerHTML = '<div style="color:var(--text-muted); padding:20px;">No components found under this exact filter combination. Try increasing the Max Component Price or switching Brand Filter to All Brands.</div>';
+                catalogGrid.innerHTML = '<div style="color:var(--text-muted); padding:20px;">No components found under this exact filter combination. Try clicking + to increase the Max Component Price or switching Brand Filter to All Brands.</div>';
                 return;
             }
 
