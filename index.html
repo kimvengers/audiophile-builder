@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Reference Audiophile System Configurator</title>
+    <title>Reference Audiophile System Architect</title>
     <style>
         :root {
             --bg-deep: #07080a;
-            --panel-bg: #0f1115;
-            --panel-elevated: #161920;
-            --card-bg: #181b22;
-            --card-hover: #1f232d;
-            --text-main: #f3f4f6;
+            --bg-panel: #0f1115;
+            --bg-card: #161920;
+            --bg-card-hover: #1c2029;
+            --bg-elevated: #1e222b;
+            --text-primary: #f3f4f6;
             --text-secondary: #9ca3af;
             --text-muted: #6b7280;
-            --accent: #d4af37;
-            --accent-light: #f3dc8a;
-            --accent-dim: rgba(212, 175, 55, 0.14);
-            --accent-glow: rgba(212, 175, 55, 0.35);
-            --emerald: #10b981;
-            --cyan: #38bdf8;
-            --border: rgba(255, 255, 255, 0.08);
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f3d478;
+            --accent-gold-dim: rgba(212, 175, 55, 0.16);
+            --accent-cyan: #00d4b2;
+            --accent-amber: #f59e0b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
             --border-strong: rgba(255, 255, 255, 0.15);
-            --chassis-grad: linear-gradient(160deg, #262932 0%, #14161b 100%);
-            --chassis-active: linear-gradient(160deg, #332d1c 0%, #1a170e 100%);
+            --chassis-grad: linear-gradient(160deg, #2a2e39 0%, #14171d 50%, #0d0f13 100%);
+            --chassis-active: linear-gradient(160deg, #3a321f 0%, #211c11 60%, #14110a 100%);
+            --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.55);
         }
 
         * { box-sizing: border-box; }
@@ -32,66 +32,55 @@
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-deep);
-            color: var(--text-main);
+            color: var(--text-primary);
             display: flex;
             height: 100vh;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- LEFT PANEL: SYSTEM STUDIO & MANIFEST --- */
+        /* ================= LEFT PANEL: VISUAL ROOM & MANIFEST ================= */
         #system-panel {
-            width: 43%;
-            min-width: 460px;
-            background-color: var(--panel-bg);
-            border-right: 1px solid var(--border);
+            width: 41%;
+            min-width: 440px;
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            box-shadow: 6px 0 30px rgba(0, 0, 0, 0.6);
             z-index: 10;
         }
 
         .app-header {
             padding: 14px 18px;
-            border-bottom: 1px solid var(--border);
-            background: linear-gradient(180deg, #12141a 0%, #0b0c10 100%);
+            background: linear-gradient(180deg, #14171f 0%, #0c0e12 100%);
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             gap: 10px;
-            flex-shrink: 0;
         }
 
-        .header-top {
+        .brand-title-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-mark {
-            width: 26px;
-            height: 26px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, var(--accent) 0%, #8a6d1b 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: 900;
-            font-size: 0.85rem;
-            box-shadow: 0 0 12px var(--accent-glow);
-        }
-
         .app-header h1 {
             margin: 0;
-            color: var(--text-main);
+            color: var(--accent-gold);
             font-size: 1.05rem;
             font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
             letter-spacing: 0.8px;
             text-transform: uppercase;
         }
@@ -100,99 +89,113 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-subtle);
             border-radius: 6px;
-            padding: 6px 10px;
-            font-size: 0.72rem;
+            padding: 5px 10px;
+            font-size: 0.7rem;
         }
 
-        .sync-status { display: flex; align-items: center; gap: 7px; color: var(--text-secondary); }
-        .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald); }
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-secondary);
+        }
+
+        .sync-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
         .sync-actions { display: flex; gap: 6px; }
 
         .mini-btn {
-            background: var(--panel-elevated);
-            color: var(--text-main);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
             border: 1px solid var(--border-strong);
             border-radius: 4px;
-            padding: 4px 9px;
-            font-size: 0.68rem;
+            padding: 4px 8px;
+            font-size: 0.65rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.18s;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            transition: all 0.18s ease;
         }
-        .mini-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-        /* --- VISUAL LISTENING ROOM DIAGRAM --- */
+        .mini-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+
+        /* --- Interactive Listening Room Schematic --- */
         #visual-room {
             height: 46%;
-            min-height: 310px;
+            min-height: 330px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding: 16px 14px 14px 14px;
-            gap: 12px;
-            background: 
+            padding: 18px 14px 14px 14px;
+            gap: 14px;
+            background:
                 radial-gradient(circle at 50% 35%, rgba(212, 175, 55, 0.07) 0%, transparent 65%),
-                linear-gradient(180deg, #0d0f13 0%, #07080a 100%);
-            border-bottom: 1px solid var(--border-strong);
-            flex-shrink: 0;
+                linear-gradient(180deg, #0b0d11 0%, #12151c 75%, #090a0d 100%);
+            border-bottom: 1px solid var(--accent-gold);
             position: relative;
+            flex-shrink: 0;
         }
 
-        .room-Tag {
+        .room-hint {
             position: absolute;
-            top: 10px;
+            top: 8px;
             left: 14px;
-            font-size: 0.62rem;
+            font-size: 0.63rem;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
-            pointer-events: none;
         }
 
         .interactive-element {
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
-            background: var(--chassis-grad);
-            border: 1px solid var(--border-strong);
-            border-radius: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            overflow: hidden;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+            user-select: none;
         }
 
         .interactive-element:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 14px var(--accent-glow);
+            border-color: var(--accent-gold-light) !important;
             transform: translateY(-2px);
-            z-index: 5;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.25);
+            z-index: 15;
         }
 
         .interactive-element.active {
-            border: 1.5px solid var(--accent);
-            background: var(--chassis-active);
-            box-shadow: 0 0 18px var(--accent-glow);
-            z-index: 6;
+            border-color: var(--accent-gold) !important;
+            background: var(--chassis-active) !important;
+            box-shadow: 0 0 0 1px var(--accent-gold), 0 8px 22px rgba(212, 175, 55, 0.35);
+            z-index: 12;
         }
 
         .interactive-element.filled {
             border-color: rgba(212, 175, 55, 0.45);
         }
 
-        .status-led {
+        .interactive-element.filled::after {
+            content: '';
             position: absolute;
             top: 5px;
             right: 5px;
             width: 5px;
             height: 5px;
+            background-color: var(--accent-cyan);
             border-radius: 50%;
-            background: #333;
-        }
-        .interactive-element.filled .status-led {
-            background: var(--emerald);
-            box-shadow: 0 0 6px var(--emerald);
+            box-shadow: 0 0 6px var(--accent-cyan);
         }
 
         .comp-label {
@@ -200,176 +203,205 @@
             color: var(--text-secondary);
             text-transform: uppercase;
             font-weight: 700;
-            letter-spacing: 0.4px;
             text-align: center;
+            letter-spacing: 0.6px;
             pointer-events: none;
-            line-height: 1.1;
         }
 
         .comp-val {
-            font-size: 0.62rem;
-            color: var(--text-main);
+            font-size: 0.63rem;
+            color: var(--accent-gold-light);
             margin-top: 2px;
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 92%;
+            max-width: 92%;
             pointer-events: none;
             font-weight: 600;
         }
 
-        .comp-price-tag {
-            font-size: 0.56rem;
-            color: var(--accent);
-            font-weight: 700;
-            pointer-events: none;
-            margin-top: 1px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Speakers & Monoblocks Stack */
+        /* Speakers & Monoblocks */
         .side-stack {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            width: 92px;
-            height: 100%;
-            justify-content: flex-end;
+            width: 82px;
         }
 
         .speaker-vis {
-            width: 86px;
-            height: 215px;
+            width: 74px;
+            height: 230px;
+            background: linear-gradient(145deg, #232730 0%, #12141a 55%, #0b0c10 100%);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 8px 8px 3px 3px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 4px 8px 4px;
-            justify-content: space-between;
+            padding: 14px 4px 8px 4px;
+            gap: 10px;
         }
 
-        .speaker-drivers {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin: 4px 0;
-        }
-
-        .driver-ring {
+        .driver {
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            background: radial-gradient(circle, #2a2e39 20%, #0e1014 70%, #222 100%);
-            border: 1.5px solid #444;
-            box-shadow: inset 0 0 6px #000;
+            background: radial-gradient(circle at center, #2e3340 0%, #111318 65%, #07080a 100%);
+            border: 1.5px solid #454c5c;
+            box-shadow: inset 0 0 8px #000;
+            position: relative;
         }
-        .driver-ring.tweeter {
+
+        .driver::after {
+            content: '';
+            position: absolute;
+            inset: 9px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #555e70, #181b22);
+        }
+
+        .tweeter {
             width: 20px;
             height: 20px;
-            background: radial-gradient(circle, var(--accent) 10%, #151820 75%);
+            border-color: var(--accent-gold);
+        }
+
+        .tweeter::after {
+            inset: 5px;
+            background: radial-gradient(circle at 35% 35%, var(--accent-gold-light), #6e5511);
         }
 
         .mono-vis {
-            width: 86px;
-            height: 58px;
-            border-top: 3px solid var(--accent);
+            width: 74px;
+            height: 52px;
+            background: var(--chassis-grad);
+            border: 1.5px solid var(--border-strong);
+            border-top: 3px solid var(--accent-gold);
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 3px;
+            padding: 2px;
         }
 
-        /* Center Equipment Rack */
+        .vu-window {
+            width: 36px;
+            height: 8px;
+            background: rgba(0, 212, 178, 0.18);
+            border: 1px solid rgba(0, 212, 178, 0.45);
+            border-radius: 2px;
+            margin-bottom: 3px;
+        }
+
+        /* Center Audio Equipment Rack */
         .rack-vis {
-            width: 276px;
-            height: 100%;
+            width: 256px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
             gap: 5px;
-            border-left: 4px solid #252830;
-            border-right: 4px solid #252830;
-            padding: 0 7px;
-            background: rgba(0,0,0,0.35);
+            border-left: 5px solid #282c37;
+            border-right: 5px solid #282c37;
+            padding: 6px 8px;
+            background: rgba(7, 8, 11, 0.65);
             border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.85);
         }
 
         .comp-vis {
             width: 100%;
-            height: 41px;
+            height: 38px;
+            background: var(--chassis-grad);
+            border: 1px solid var(--border-strong);
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2px 4px;
+            padding: 2px 6px;
         }
 
-        .rack-row { display: flex; gap: 5px; width: 100%; }
+        .rack-row {
+            display: flex;
+            gap: 5px;
+            width: 100%;
+        }
+
         .rack-row .comp-vis { flex: 1; min-width: 0; }
 
-        .platter-graphic {
-            width: 90px;
+        .platter {
+            width: 96px;
             height: 4px;
-            background: linear-gradient(90deg, #555, #aaa, #555);
-            border-radius: 2px;
-            margin-bottom: 2px;
+            background: linear-gradient(90deg, #555, #bbb, #555);
+            border-radius: 2px 2px 0 0;
+            margin-bottom: 3px;
         }
-        #vis-5 { height: 48px; }
 
-        .cables-hub {
-            margin-top: 2px;
-            background: rgba(10, 12, 16, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 5px;
+        #vis-5 {
+            height: 48px;
+            justify-content: flex-end;
+            padding-bottom: 4px;
         }
+
+        /* Cable Patchbay Hub */
+        .cables-hub {
+            margin-top: 3px;
+            background: #0a0c10;
+            border: 1px solid var(--border-strong);
+            border-radius: 5px;
+            padding: 5px 6px;
+        }
+
         .cables-title {
             text-align: center;
-            font-size: 0.52rem;
+            font-size: 0.54rem;
             color: var(--text-muted);
             text-transform: uppercase;
             margin-bottom: 4px;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             font-weight: 700;
         }
+
         .cables-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 4px;
         }
+
         .cable-vis {
-            height: 34px;
+            background: #14171f;
+            border: 1px solid var(--border-subtle);
+            border-radius: 3px;
+            padding: 3px 2px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2px;
+            height: 31px;
+            min-width: 0;
         }
 
-        /* --- SYSTEM MANIFEST LIST --- */
+        /* --- Selected Components Manifest List --- */
         .manifest-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 8px 16px;
             background: #0b0d11;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.7rem;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.68rem;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             color: var(--text-secondary);
-            font-weight: 700;
-            flex-shrink: 0;
+            font-weight: 600;
         }
 
         #list-view {
             flex-grow: 1;
             overflow-y: auto;
             padding: 6px 12px;
-            background: var(--panel-bg);
+            background: var(--bg-panel);
         }
 
         .list-item {
@@ -377,52 +409,117 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 10px;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 4px;
             border-radius: 5px;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border-subtle);
             cursor: pointer;
-            transition: background 0.15s;
+            transition: all 0.16s ease;
+        }
+
+        .list-item:hover, .list-item.active-list-item {
+            background: var(--bg-card-hover);
+            border-color: rgba(212, 175, 55, 0.5);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .list-left {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding-right: 10px;
+        }
+
+        .list-cat {
+            font-size: 0.64rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
             margin-bottom: 2px;
         }
-        .list-item:hover { background: rgba(255,255,255,0.03); }
-        .list-item.active-list-item {
-            background: var(--accent-dim);
-            border-left: 3px solid var(--accent);
+
+        .list-name {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .list-left { min-width: 0; flex: 1; padding-right: 10px; }
-        .list-cat { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px; }
-        .list-name { font-size: 0.86rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
-        .list-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .list-price { color: var(--accent); font-weight: 700; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
-        .remove-btn {
+        .list-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.88rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .remove-slot-btn {
             background: transparent;
-            border: none;
+            border: 1px solid var(--border-strong);
             color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 2px 5px;
             border-radius: 4px;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .remove-btn:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
 
-        /* Total Footer Bar */
+        .remove-slot-btn:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+
         #total-bar {
             padding: 14px 18px;
-            background: #08090c;
-            border-top: 1px solid var(--accent);
+            background: #060709;
+            border-top: 1px solid var(--accent-gold);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
         }
-        .total-meta { display: flex; flex-direction: column; gap: 2px; }
-        .total-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); font-weight: 600; }
-        .total-count { font-size: 0.72rem; color: var(--emerald); font-weight: 600; }
-        #total-price { font-size: 1.35rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
 
-        /* --- RIGHT PANEL: CONTROLS & COMPONENT CATALOG --- */
+        .total-label-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .total-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .total-count {
+            font-size: 0.68rem;
+            color: var(--accent-cyan);
+            margin-top: 2px;
+        }
+
+        #total-price {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--accent-gold-light);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ================= RIGHT PANEL: CONTROLS & SHOWROOM ================= */
         #catalog-panel {
-            flex: 1;
+            width: 59%;
             display: flex;
             flex-direction: column;
             padding: 16px 20px;
@@ -437,75 +534,52 @@
             gap: 10px;
             margin-bottom: 12px;
             padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-subtle);
             flex-shrink: 0;
         }
 
         .control-panel {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            background: var(--panel-bg);
+            gap: 8px;
+            background: var(--bg-panel);
             padding: 12px 14px;
             border-radius: 8px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
         }
 
-        .panel-top-row {
+        .control-top-line {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             gap: 12px;
+            align-items: center;
             flex-wrap: wrap;
         }
 
-        .panel-controls-row {
+        .control-group {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
+            gap: 5px;
+            flex-grow: 1;
         }
 
         .label {
             color: var(--text-secondary);
-            font-size: 0.7rem;
+            font-size: 0.66rem;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.7px;
             font-weight: 700;
         }
 
-        .tier-pills {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .tier-pill {
-            background: var(--panel-elevated);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-strong);
-            border-radius: 4px;
-            padding: 3px 8px;
-            font-size: 0.68rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .tier-pill:hover, .tier-pill.active-pill {
-            background: var(--accent-dim);
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .slider-wrapper {
+        .slider-with-steps {
             display: flex;
             align-items: center;
             gap: 8px;
-            flex: 1;
         }
 
         .step-btn {
-            background: var(--panel-elevated);
-            color: var(--text-main);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
             border: 1px solid var(--border-strong);
             border-radius: 4px;
             width: 26px;
@@ -517,80 +591,115 @@
             justify-content: center;
             flex-shrink: 0;
         }
-        .step-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        input[type=range] {
-            width: 100%;
-            accent-color: var(--accent);
-            cursor: pointer;
-            height: 6px;
+        .step-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
-        select, .search-input {
+        select {
             padding: 7px 10px;
-            background: var(--panel-elevated);
-            color: var(--text-main);
+            background: var(--bg-card);
+            color: var(--text-primary);
             border: 1px solid var(--border-strong);
             border-radius: 5px;
             font-size: 0.82rem;
+            cursor: pointer;
             outline: none;
         }
-        select:focus, .search-input:focus { border-color: var(--accent); }
 
-        .price-badge {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            padding: 5px 10px;
-            border-radius: 6px;
+        select:focus { border-color: var(--accent-gold); }
+
+        input[type=range] {
+            width: 100%;
+            accent-color: var(--accent-gold);
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .price-display {
             font-size: 0.92rem;
-            font-weight: 800;
-            color: var(--accent);
-            min-width: 125px;
-            text-align: center;
+            font-weight: 700;
+            color: var(--accent-gold-light);
+            text-align: right;
+            min-width: 115px;
             font-variant-numeric: tabular-nums;
-            flex-shrink: 0;
         }
 
         .action-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, #b58d22 100%);
-            color: #000;
-            font-weight: 800;
-            padding: 8px 16px;
+            background: linear-gradient(135deg, #e5c158 0%, #b89020 100%);
+            color: #050505;
+            font-weight: 700;
+            padding: 9px 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.78rem;
+            letter-spacing: 0.6px;
             transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .action-btn:hover {
-            filter: brightness(1.12);
-            box-shadow: 0 0 14px var(--accent-glow);
+            font-size: 0.78rem;
+            white-space: nowrap;
         }
 
-        /* Catalog Toolbar */
-        .catalog-toolbar {
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.45);
+        }
+
+        /* Quick Budget & Price Bracket Pills */
+        .pill-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .pill-label {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-right: 4px;
+            font-weight: 600;
+        }
+
+        .tier-pill {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 0.67rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .tier-pill:hover, .tier-pill.active-pill {
+            background: var(--accent-gold-dim);
+            color: var(--accent-gold-light);
+            border-color: var(--accent-gold);
+        }
+
+        /* Showroom Header Bar */
+        .showroom-toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            gap: 10px;
+            margin-bottom: 10px;
             flex-shrink: 0;
-            flex-wrap: wrap;
-        }
-        .catalog-toolbar h2 {
-            font-size: 1.05rem;
-            font-weight: 600;
-        }
-        .toolbar-filters {
-            display: flex;
-            gap: 8px;
-            align-items: center;
         }
 
-        /* --- PRODUCT GRID & CARDS --- */
+        .showroom-toolbar h2 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .result-stats {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Catalog Grid & Refined Product Cards --- */
         #catalog-grid-container {
             flex-grow: 1;
             overflow-y: auto;
@@ -605,154 +714,161 @@
         }
 
         .product-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
             border-radius: 8px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
-            height: 385px;
-            transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+            height: 380px;
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
         }
+
         .product-card:hover {
             transform: translateY(-3px);
             border-color: var(--border-strong);
-            background-color: var(--card-hover);
+            box-shadow: var(--shadow-soft);
         }
+
         .product-card.recommended {
-            border: 1px solid rgba(212, 175, 55, 0.55);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.65);
+            box-shadow: 0 4px 18px rgba(212, 175, 55, 0.12);
+        }
+
+        .product-card.equipped-card {
+            border: 1.5px solid var(--accent-cyan);
         }
 
         .product-image-container {
             width: 100%;
             height: 132px;
-            background: radial-gradient(circle at center, #232733 0%, #101217 100%);
-            border-bottom: 1px solid var(--border);
+            background: radial-gradient(circle at center, #20242e 0%, #0d0f14 100%);
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             flex-shrink: 0;
-        }
-
-        .tier-tag {
-            position: absolute;
-            bottom: 7px;
-            left: 8px;
-            background: rgba(0,0,0,0.75);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-strong);
-            font-size: 0.58rem;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
+            overflow: hidden;
         }
 
         .recommended-badge {
             position: absolute;
             top: 8px;
             right: 8px;
-            background: var(--accent);
-            color: #000;
-            font-size: 0.62rem;
-            font-weight: 800;
-            padding: 3px 7px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            z-index: 5;
-        }
-
-        .weekly-new-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--emerald);
+            background: rgba(212, 175, 55, 0.92);
             color: #000;
             font-size: 0.6rem;
             font-weight: 800;
             padding: 3px 7px;
-            border-radius: 4px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            z-index: 5;
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(15, 17, 21, 0.85);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-strong);
+            font-size: 0.58rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
             text-transform: uppercase;
             z-index: 5;
         }
 
         .product-content {
-            padding: 12px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .product-card h3 {
-            margin: 0 0 3px 0;
+            margin: 0 0 4px 0;
             font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-main);
+            font-weight: 600;
+            color: var(--text-primary);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .product-price {
-            color: var(--accent);
-            font-size: 1.05rem;
-            font-weight: 800;
+        .price-synergy-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: var(--accent-gold-light);
+            font-size: 1.02rem;
+            font-weight: 700;
             font-variant-numeric: tabular-nums;
         }
 
-        .spec-row {
+        .synergy-tags {
+            font-size: 0.62rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .tech-info, .strengths, .remarks {
             font-size: 0.74rem;
             margin-bottom: 5px;
             line-height: 1.3;
-            color: var(--text-secondary);
+            color: #d1d5db;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-        }
-        .spec-row strong {
-            color: var(--text-main);
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            margin-right: 4px;
         }
 
         .card-actions {
             display: flex;
             gap: 8px;
             margin-top: auto;
-            padding-top: 8px;
+            padding-top: 6px;
         }
+
         .select-btn {
             padding: 7px 10px;
-            background-color: var(--accent-dim);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            border-radius: 5px;
+            background-color: var(--accent-gold-dim);
+            color: var(--accent-gold-light);
+            border: 1px solid var(--accent-gold);
+            border-radius: 4px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.18s;
-            font-size: 0.76rem;
-            flex: 1.2;
+            font-size: 0.75rem;
+            flex: 1.3;
+            text-align: center;
+            text-transform: uppercase;
         }
-        .select-btn:hover { background-color: var(--accent); color: #000; }
+
+        .select-btn:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
 
         .link-btn {
-            padding: 7px 10px;
-            background-color: var(--panel-elevated);
+            padding: 7px 8px;
+            background-color: var(--bg-elevated);
             color: var(--text-secondary);
             border: 1px solid var(--border-strong);
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.18s;
-            font-size: 0.74rem;
+            font-size: 0.73rem;
             text-decoration: none;
             text-align: center;
             flex: 1;
@@ -760,38 +876,65 @@
             align-items: center;
             justify-content: center;
         }
-        .link-btn:hover { border-color: var(--accent); color: var(--text-main); }
+
+        .link-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--text-primary);
+        }
 
         /* Modal */
         #import-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100;
-            justify-content: center; align-items: center; backdrop-filter: blur(5px);
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
         }
+
         .modal-box {
-            background: var(--panel-elevated); border: 1px solid var(--accent); border-radius: 8px; width: 500px;
-            padding: 20px; display: flex; flex-direction: column; gap: 12px;
+            background: var(--bg-panel);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            width: 520px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
+
         .modal-box textarea {
-            width: 100%; height: 140px; background: #090a0d; color: #fff; border: 1px solid var(--border-strong);
-            border-radius: 4px; padding: 8px; font-family: monospace; font-size: 0.8rem;
+            width: 100%;
+            height: 150px;
+            background: var(--bg-deep);
+            color: #fff;
+            border: 1px solid var(--border-strong);
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.8rem;
         }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: #2e3340; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #2e3440; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
     </style>
 </head>
 <body>
 
-    <!-- LEFT PANEL: VISUAL ROOM & SYSTEM MANIFEST -->
+    <!-- ================= LEFT PANEL ================= -->
     <div id="system-panel">
         <div class="app-header">
-            <div class="header-top">
-                <div class="brand-title">
-                    <div class="brand-mark">A</div>
-                    <h1>Reference System Studio</h1>
-                </div>
-                <button class="mini-btn" onclick="clearSystem()" title="Clear all selected components">Reset Room</button>
+            <div class="brand-title-row">
+                <h1>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    System Architect
+                </h1>
+                <span class="header-subtitle">Entry $1.5K to $5M Reference</span>
             </div>
             <div class="sync-bar">
                 <div class="sync-status">
@@ -801,110 +944,87 @@
                 <div class="sync-actions">
                     <button class="mini-btn" onclick="forceNextWeekRotation()">Sync Next Week</button>
                     <button class="mini-btn" onclick="openImportModal()">Import JSON</button>
+                    <button class="mini-btn" onclick="clearSystem()">Clear Room</button>
                 </div>
             </div>
         </div>
         
         <div id="visual-room">
-            <div class="room-Tag">Interactive Acoustic Schematic • Click Any Unit</div>
+            <div class="room-hint">Click any component in the room to browse & swap</div>
 
             <!-- LEFT SPEAKER & MONO -->
             <div class="side-stack">
                 <div class="interactive-element speaker-vis" id="vis-speaker-l" onclick="selectCategory(13)">
-                    <div class="status-led"></div>
-                    <div class="comp-label">Left Speaker</div>
-                    <div class="speaker-drivers">
-                        <div class="driver-ring tweeter"></div>
-                        <div class="driver-ring"></div>
-                        <div class="driver-ring"></div>
-                    </div>
-                    <div class="comp-val"></div>
-                    <div class="comp-price-tag"></div>
+                    <div class="comp-label">Speaker L</div>
+                    <div class="driver tweeter"></div>
+                    <div class="driver"></div>
+                    <div class="driver"></div>
+                    <div class="comp-val" style="margin-top: auto;"></div>
                 </div>
                 <div class="interactive-element mono-vis" id="vis-mono-l" onclick="selectCategory(0)">
-                    <div class="status-led"></div>
-                    <div class="comp-label">Mono Amp L</div>
+                    <div class="vu-window"></div>
+                    <div class="comp-label">Mono Amp</div>
                     <div class="comp-val"></div>
-                    <div class="comp-price-tag"></div>
                 </div>
             </div>
 
-            <!-- CENTER EQUIPMENT RACK -->
+            <!-- CENTER 5-TIER RACK -->
             <div class="rack-vis">
                 <div class="interactive-element comp-vis" id="vis-5" onclick="selectCategory(5)">
-                    <div class="status-led"></div>
-                    <div class="platter-graphic"></div>
+                    <div class="platter"></div>
                     <div class="comp-label">Vinyl Turntable</div>
                     <div class="comp-val"></div>
                 </div>
                 <div class="rack-row">
                     <div class="interactive-element comp-vis" id="vis-7" onclick="selectCategory(7)">
-                        <div class="status-led"></div>
-                        <div class="comp-label">Network Player</div>
+                        <div class="comp-label">Network Streamer</div>
                         <div class="comp-val"></div>
                     </div>
                     <div class="interactive-element comp-vis" id="vis-4" onclick="selectCategory(4)">
-                        <div class="status-led"></div>
                         <div class="comp-label">SACD Player</div>
                         <div class="comp-val"></div>
                     </div>
                 </div>
                 <div class="interactive-element comp-vis" id="vis-1" onclick="selectCategory(1)">
-                    <div class="status-led"></div>
                     <div class="comp-label">Pre-Amplifier</div>
                     <div class="comp-val"></div>
                 </div>
                 <div class="rack-row">
                     <div class="interactive-element comp-vis" id="vis-2" onclick="selectCategory(2)">
-                        <div class="status-led"></div>
-                        <div class="comp-label">DAC</div>
+                        <div class="comp-label">Reference DAC</div>
                         <div class="comp-val"></div>
                     </div>
                     <div class="interactive-element comp-vis" id="vis-3" onclick="selectCategory(3)">
-                        <div class="status-led"></div>
                         <div class="comp-label">Master Clock</div>
                         <div class="comp-val"></div>
                     </div>
                 </div>
                 <div class="interactive-element comp-vis" id="vis-6" onclick="selectCategory(6)">
-                    <div class="status-led"></div>
                     <div class="comp-label">Power Conditioner</div>
                     <div class="comp-val"></div>
                 </div>
 
-                <!-- CABLES & LOOM MATRIX -->
+                <!-- CABLE MATRIX -->
                 <div class="cables-hub">
-                    <div class="cables-title">System Loom & Interconnects</div>
+                    <div class="cables-title">Interconnect & Cable Loom</div>
                     <div class="cables-grid">
                         <div class="interactive-element cable-vis" id="vis-8" onclick="selectCategory(8)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">Power Cbl</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">Power Cbl</div><div class="comp-val"></div>
                         </div>
                         <div class="interactive-element cable-vis" id="vis-9" onclick="selectCategory(9)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">XLR</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">XLR Cbl</div><div class="comp-val"></div>
                         </div>
                         <div class="interactive-element cable-vis" id="vis-11" onclick="selectCategory(11)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">RCA</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">RCA Cbl</div><div class="comp-val"></div>
                         </div>
                         <div class="interactive-element cable-vis" id="vis-10" onclick="selectCategory(10)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">Optical</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">Optical</div><div class="comp-val"></div>
                         </div>
                         <div class="interactive-element cable-vis" id="vis-14" onclick="selectCategory(14)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">USB</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">USB Cbl</div><div class="comp-val"></div>
                         </div>
                         <div class="interactive-element cable-vis" id="vis-12" onclick="selectCategory(12)">
-                            <div class="status-led"></div>
-                            <div class="comp-label">Speaker Cbl</div>
-                            <div class="comp-val"></div>
+                            <div class="comp-label">Speaker Cbl</div><div class="comp-val"></div>
                         </div>
                     </div>
                 </div>
@@ -913,136 +1033,157 @@
             <!-- RIGHT SPEAKER & MONO -->
             <div class="side-stack">
                 <div class="interactive-element speaker-vis" id="vis-speaker-r" onclick="selectCategory(13)">
-                    <div class="status-led"></div>
-                    <div class="comp-label">Right Speaker</div>
-                    <div class="speaker-drivers">
-                        <div class="driver-ring tweeter"></div>
-                        <div class="driver-ring"></div>
-                        <div class="driver-ring"></div>
-                    </div>
-                    <div class="comp-val"></div>
-                    <div class="comp-price-tag"></div>
+                    <div class="comp-label">Speaker R</div>
+                    <div class="driver tweeter"></div>
+                    <div class="driver"></div>
+                    <div class="driver"></div>
+                    <div class="comp-val" style="margin-top: auto;"></div>
                 </div>
                 <div class="interactive-element mono-vis" id="vis-mono-r" onclick="selectCategory(0)">
-                    <div class="status-led"></div>
-                    <div class="comp-label">Mono Amp R</div>
+                    <div class="vu-window"></div>
+                    <div class="comp-label">Mono Amp</div>
                     <div class="comp-val"></div>
-                    <div class="comp-price-tag"></div>
                 </div>
             </div>
         </div>
 
         <div class="manifest-header">
-            <span>Selected System Manifest (15 Slots)</span>
-            <span id="synergy-summary">Synergy: Ready</span>
+            <span>Active System Manifest (15 Slots)</span>
+            <span>Click slot to edit</span>
         </div>
-
         <div id="list-view"></div>
 
         <div id="total-bar">
-            <div class="total-meta">
+            <div class="total-label-group">
                 <span class="total-label">Total System Investment</span>
-                <span class="total-count" id="slot-counter">0 of 15 Components Equipped</span>
+                <span class="total-count" id="equipped-count">0 of 15 components equipped</span>
             </div>
             <span id="total-price">$0</span>
         </div>
     </div>
 
-    <!-- RIGHT PANEL: CONTROLS & CATALOG -->
+    <!-- ================= RIGHT PANEL ================= -->
     <div id="catalog-panel">
-        
         <div class="controls-row">
-            <!-- 1. AUTO-BUILD SYSTEM BY BUDGET (Supports $1,500 up to $5,000,000 smoothly) -->
+            <!-- 1. AUTO-BUILD SYSTEM BY BUDGET (Logarithmic Slider + Quick Pills) -->
             <div class="control-panel">
-                <div class="panel-top-row">
-                    <span class="label">1. Auto-Build Full System by Target Budget ($1.5k – $5M)</span>
-                    <div class="tier-pills">
-                        <button class="tier-pill" onclick="setAutoBudget(2500)">$2.5k Entry</button>
-                        <button class="tier-pill" onclick="setAutoBudget(6000)">$6k Hi-Fi</button>
-                        <button class="tier-pill" onclick="setAutoBudget(15000)">$15k Audiophile</button>
-                        <button class="tier-pill" onclick="setAutoBudget(50000)">$50k Reference</button>
-                        <button class="tier-pill" onclick="setAutoBudget(250000)">$250k Ultra</button>
-                        <button class="tier-pill" onclick="setAutoBudget(1500000)">$1.5M Statement</button>
+                <div class="control-top-line">
+                    <div class="control-group" style="flex-grow: 2;">
+                        <label class="label">1. Auto-Build Complete 15-Piece System by Target Budget ($1,500 – $5,000,000)</label>
+                        <div class="slider-with-steps">
+                            <button class="step-btn" onclick="stepBudgetSlider(-25)" title="Lower Budget">−</button>
+                            <input type="range" id="budget-slider" min="0" max="1000" step="1" value="350">
+                            <button class="step-btn" onclick="stepBudgetSlider(25)" title="Increase Budget">+</button>
+                        </div>
                     </div>
+                    <div class="control-group" style="min-width: 135px; max-width: 165px;">
+                        <label class="label">Auto Synergy Profile</label>
+                        <select id="auto-genre-select">
+                            <option value="jazz" selected>Jazz & Vocals</option>
+                            <option value="pop">Pop / Electronic</option>
+                            <option value="orchestral">Classical / Symphonic</option>
+                            <option value="all">Neutral All-Rounder</option>
+                        </select>
+                    </div>
+                    <div class="price-display">
+                        <span class="label" style="display:block; font-size:0.6rem;">Target Budget</span>
+                        <span id="target-budget-display">$15,000</span>
+                    </div>
+                    <button class="action-btn" onclick="autoBuildSystem()">Auto-Build System</button>
                 </div>
-                <div class="panel-controls-row">
-                    <div class="slider-wrapper">
-                        <button class="step-btn" onclick="nudgeBudget(-1)" title="Decrease Budget">-</button>
-                        <input type="range" id="budget-slider" min="0" max="1000" step="1" value="350">
-                        <button class="step-btn" onclick="nudgeBudget(1)" title="Increase Budget">+</button>
-                    </div>
-                    <div class="price-badge" id="target-budget-display">$25,000</div>
-                    <select id="auto-genre-select" title="Auto-Build Synergy Profile">
-                        <option value="jazz" selected>Jazz & Vocals</option>
-                        <option value="pop">Pop / Electronic</option>
-                        <option value="orchestral">Classical</option>
-                        <option value="all">All-Rounder</option>
-                    </select>
-                    <button class="action-btn" onclick="autoBuildSystem()">Auto-Build</button>
+
+                <div class="pill-bar">
+                    <span class="pill-label">Quick Budget:</span>
+                    <button class="tier-pill" onclick="setTargetBudget(2500)">$2.5K Entry</button>
+                    <button class="tier-pill" onclick="setTargetBudget(5000)">$5K Hi-Fi</button>
+                    <button class="tier-pill" onclick="setTargetBudget(10000)">$10K Enthusiast</button>
+                    <button class="tier-pill active-pill" onclick="setTargetBudget(15000)">$15K Audiophile</button>
+                    <button class="tier-pill" onclick="setTargetBudget(30000)">$30K Studio</button>
+                    <button class="tier-pill" onclick="setTargetBudget(75000)">$75K Reference</button>
+                    <button class="tier-pill" onclick="setTargetBudget(200000)">$200K Master</button>
+                    <button class="tier-pill" onclick="setTargetBudget(750000)">$750K Ultra</button>
+                    <button class="tier-pill" onclick="setTargetBudget(3000000)">$3M Summit</button>
                 </div>
             </div>
 
-            <!-- 2. INDIVIDUAL COMPONENT FILTER (Supports $50 up to $1,000,000 smoothly) -->
+            <!-- 2. INDIVIDUAL COMPONENT EXPLORER & FILTERS -->
             <div class="control-panel">
-                <div class="panel-top-row">
-                    <span class="label">2. Individual Component Max Price Filter ($50 – $1M)</span>
-                    <div class="tier-pills">
-                        <button class="tier-pill" onclick="setCompMaxPrice(500)">Under $500</button>
-                        <button class="tier-pill" onclick="setCompMaxPrice(2000)">Up to $2k</button>
-                        <button class="tier-pill" onclick="setCompMaxPrice(10000)">Up to $10k</button>
-                        <button class="tier-pill" onclick="setCompMaxPrice(50000)">Up to $50k</button>
-                        <button class="tier-pill active-pill" onclick="setCompMaxPrice(1000000)">All Prices ($1M)</button>
+                <div class="control-top-line">
+                    <div class="control-group" style="flex-grow: 2;">
+                        <label class="label">2. Individual Component Max Price Filter</label>
+                        <div class="slider-with-steps">
+                            <button class="step-btn" onclick="stepComponentSlider(-30)">−</button>
+                            <input type="range" id="price-slider" min="0" max="1000" step="1" value="1000">
+                            <button class="step-btn" onclick="stepComponentSlider(30)">+</button>
+                        </div>
+                    </div>
+                    <div class="price-display">
+                        <span class="label" style="display:block; font-size:0.6rem;">Max Filter</span>
+                        <span id="price-range-display">Up to $1,000,000</span>
+                    </div>
+                    <div class="control-group" style="min-width: 115px;">
+                        <label class="label">Brand Filter</label>
+                        <select id="brand-select" onchange="renderCatalog()">
+                            <option value="all" selected>All Brands (35+)</option>
+                            <option value="Fosi Audio">Fosi Audio (Entry)</option>
+                            <option value="WiiM">WiiM (Entry)</option>
+                            <option value="Schiit">Schiit Audio</option>
+                            <option value="Topping">Topping</option>
+                            <option value="ELAC">ELAC</option>
+                            <option value="Wharfedale">Wharfedale</option>
+                            <option value="Fluance">Fluance</option>
+                            <option value="Pro-Ject">Pro-Ject</option>
+                            <option value="Cambridge">Cambridge Audio</option>
+                            <option value="Rega">Rega</option>
+                            <option value="KEF">KEF</option>
+                            <option value="Klipsch">Klipsch</option>
+                            <option value="Bowers & Wilkins">Bowers & Wilkins</option>
+                            <option value="ProAc">ProAc</option>
+                            <option value="ATM (Air Tight)">ATM (Air Tight)</option>
+                            <option value="McIntosh">McIntosh</option>
+                            <option value="Pass Labs">Pass Labs</option>
+                            <option value="Bang & Olufsen">Bang & Olufsen</option>
+                            <option value="Gryphon">Gryphon</option>
+                            <option value="Kharma">Kharma</option>
+                            <option value="CH Precision">CH Precision</option>
+                            <option value="Wilson Audio">Wilson Audio</option>
+                            <option value="Magico">Magico</option>
+                        </select>
+                    </div>
+                    <div class="control-group" style="min-width: 115px;">
+                        <label class="label">Synergy Highlight</label>
+                        <select id="genre-select" onchange="renderCatalog()">
+                            <option value="jazz" selected>Jazz & Vocals</option>
+                            <option value="pop">Pop / Electronic</option>
+                            <option value="orchestral">Classical</option>
+                            <option value="all">All Genres</option>
+                        </select>
+                    </div>
+                    <div class="control-group" style="min-width: 115px;">
+                        <label class="label">Sort Order</label>
+                        <select id="sort-select" onchange="renderCatalog()">
+                            <option value="price-asc" selected>Price: Low → High</option>
+                            <option value="price-desc">Price: High → Low</option>
+                            <option value="synergy">Best Synergy First</option>
+                        </select>
                     </div>
                 </div>
-                <div class="panel-controls-row">
-                    <div class="slider-wrapper">
-                        <button class="step-btn" onclick="nudgeCompPrice(-1)">-</button>
-                        <input type="range" id="price-slider" min="0" max="1000" step="1" value="1000">
-                        <button class="step-btn" onclick="nudgeCompPrice(1)">+</button>
-                    </div>
-                    <div class="price-badge" id="price-range-display">Up to $1,000,000</div>
-                    <select id="genre-select" onchange="renderCatalog()">
-                        <option value="jazz" selected>Synergy: Jazz & Vocals</option>
-                        <option value="pop">Synergy: Pop / Electronic</option>
-                        <option value="orchestral">Synergy: Classical</option>
-                        <option value="all">Synergy: All-Rounder</option>
-                    </select>
+
+                <div class="pill-bar" id="bracket-pills">
+                    <span class="pill-label">Price Bracket:</span>
+                    <button class="tier-pill active-pill" onclick="setPriceBracket('all', this)">All Tiers</button>
+                    <button class="tier-pill" onclick="setPriceBracket('entry', this)">Budget / Entry (&lt;$500)</button>
+                    <button class="tier-pill" onclick="setPriceBracket('mid', this)">Mid-Fi ($500 – $2,500)</button>
+                    <button class="tier-pill" onclick="setPriceBracket('hifi', this)">High-End ($2,500 – $15,000)</button>
+                    <button class="tier-pill" onclick="setPriceBracket('ref', this)">Reference ($15,000 – $75,000)</button>
+                    <button class="tier-pill" onclick="setPriceBracket('ultra', this)">Ultra Summit ($75,000+)</button>
                 </div>
             </div>
         </div>
 
-        <div class="catalog-toolbar">
-            <h2><span id="current-category-label" style="color:var(--accent)">Speakers</span> <span id="item-count-badge" style="font-size:0.8rem; color:var(--text-secondary); font-weight:normal;"></span></h2>
-            <div class="toolbar-filters">
-                <input type="text" id="search-input" class="search-input" placeholder="Search brand or model..." oninput="renderCatalog()">
-                <select id="brand-select" onchange="renderCatalog()">
-                    <option value="all" selected>All Brands (150+)</option>
-                    <option value="Fosi">Fosi Audio</option>
-                    <option value="Schiit">Schiit Audio</option>
-                    <option value="WiiM">WiiM</option>
-                    <option value="Topping">Topping</option>
-                    <option value="Fluance">Fluance</option>
-                    <option value="ELAC">ELAC</option>
-                    <option value="Wharfedale">Wharfedale</option>
-                    <option value="KEF">KEF</option>
-                    <option value="Rega">Rega</option>
-                    <option value="ProAc">ProAc</option>
-                    <option value="ATM">ATM (Air Tight)</option>
-                    <option value="Bang & Olufsen">Bang & Olufsen</option>
-                    <option value="Gryphon">Gryphon</option>
-                    <option value="Kharma">Kharma</option>
-                    <option value="McIntosh">McIntosh</option>
-                    <option value="CH Precision">CH Precision</option>
-                    <option value="Bowers & Wilkins">Bowers & Wilkins</option>
-                    <option value="Wilson Audio">Wilson Audio</option>
-                    <option value="Magico">Magico</option>
-                </select>
-                <select id="sort-select" onchange="renderCatalog()">
-                    <option value="price-asc" selected>Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="synergy">Best Synergy Match</option>
-                </select>
-            </div>
+        <div class="showroom-toolbar">
+            <h2>Category: <span id="current-category-label" style="color:var(--accent-gold-light)">Speakers</span></h2>
+            <span class="result-stats" id="result-stats-label">Showing components</span>
         </div>
         
         <div id="catalog-grid-container">
@@ -1053,12 +1194,12 @@
     <!-- JSON IMPORT MODAL -->
     <div id="import-modal">
         <div class="modal-box">
-            <h3 style="margin:0; color:var(--accent);">Import Custom Component Feed (JSON)</h3>
+            <h3 style="margin:0; color:var(--accent-gold);">Import Weekly Component Feed (JSON)</h3>
             <p style="margin:0; font-size:0.8rem; color:var(--text-secondary);">Paste a JSON array of components to merge into your catalog:</p>
-            <textarea id="import-textarea" placeholder='[[13, "ProAc Response D2R", 4200, "Ribbon Tweeter, Bookshelf", "Liquid British vocal realism", "Made in UK", ["jazz"], true]]'></textarea>
+            <textarea id="import-textarea" placeholder='[[13, "ProAc Response D2R", 4200, "Ribbon tweeter bookshelf", "Lush British vocal warmth", "Made in UK", ["jazz"], true]]'></textarea>
             <div style="display:flex; justify-content:flex-end; gap:10px;">
                 <button class="mini-btn" onclick="closeImportModal()">Cancel</button>
-                <button class="action-btn" onclick="saveImportedComponents()">Save & Sync</button>
+                <button class="action-btn" style="padding:6px 14px;" onclick="saveImportedComponents()">Save & Sync</button>
             </div>
         </div>
     </div>
@@ -1071,271 +1212,24 @@
             "Speaker Cable", "Speakers", "USB Cable"
         ];
 
-        // Multi-Zone Non-Linear Slider Mapping for Target Budget ($1,500 to $5,000,000)
-        // Gives 50% of slider travel to $1,500 - $50,000 so low/mid-range users have pinpoint control!
-        function sliderToBudget(val) {
-            const v = parseInt(val);
-            if (v <= 250) {
-                // 0..250 -> $1,500 to $10,000 (step $100)
-                return Math.round((1500 + (v / 250) * 8500) / 100) * 100;
-            } else if (v <= 500) {
-                // 250..500 -> $10,000 to $50,000 (step $500)
-                return Math.round((10000 + ((v - 250) / 250) * 40000) / 500) * 500;
-            } else if (v <= 750) {
-                // 500..750 -> $50,000 to $350,000 (step $2,500)
-                return Math.round((50000 + ((v - 500) / 250) * 300000) / 2500) * 2500;
-            } else {
-                // 750..1000 -> $350,000 to $5,000,000 (step $25,000)
-                return Math.round((350000 + ((v - 750) / 250) * 4650000) / 25000) * 25000;
-            }
-        }
-
-        function budgetToSlider(price) {
-            if (price <= 10000) return Math.round(((price - 1500) / 8500) * 250);
-            if (price <= 50000) return Math.round(250 + ((price - 10000) / 40000) * 250);
-            if (price <= 350000) return Math.round(500 + ((price - 50000) / 300000) * 250);
-            return Math.min(1000, Math.round(750 + ((price - 350000) / 4650000) * 250));
-        }
-
-        // Multi-Zone Non-Linear Slider Mapping for Component Max Price ($50 to $1,000,000)
-        function sliderToCompPrice(val) {
-            const v = parseInt(val);
-            if (v <= 300) {
-                // 0..300 -> $50 to $1,500 (step $25)
-                return Math.max(50, Math.round((50 + (v / 300) * 1450) / 25) * 25);
-            } else if (v <= 600) {
-                // 300..600 -> $1,500 to $15,000 (step $250)
-                return Math.round((1500 + ((v - 300) / 300) * 13500) / 250) * 250;
-            } else if (v <= 850) {
-                // 600..850 -> $15,000 to $100,000 (step $1,000)
-                return Math.round((15000 + ((v - 600) / 250) * 85000) / 1000) * 1000;
-            } else {
-                // 850..1000 -> $100,000 to $1,000,000 (step $10,000)
-                return Math.round((100000 + ((v - 850) / 150) * 900000) / 10000) * 10000;
-            }
-        }
-
-        function compPriceToSlider(price) {
-            if (price <= 1500) return Math.max(0, Math.round(((price - 50) / 1450) * 300));
-            if (price <= 15000) return Math.round(300 + ((price - 1500) / 13500) * 300);
-            if (price <= 100000) return Math.round(600 + ((price - 15000) / 85000) * 250);
-            return Math.min(1000, Math.round(850 + ((price - 100000) / 900000) * 150));
-        }
-
-        // Authentic Curated Models Across Entry-Level, Mid-Fi, High-End, and Ultra Flagships
-        const curatedRealWorldModels = [
-            // 0: Mono Block Amplifiers (Entry to Ultra)
-            [0, "Fosi Audio V3 Mono (Pair)", 280, "TI TPA3255 PFFB Class-D, 240W", "Astonishing entry-level load-invariant clarity", "Made in China", ["pop", "jazz", "orchestral"], true],
-            [0, "Schiit Rekkr Mono (Pair)", 300, "Class-AB Discrete, 4W Mono", "Sweet desktop/nearfield acoustic purity", "Made in USA", ["jazz"], false],
-            [0, "Schiit Gjallarhorn Mono (Pair)", 600, "Continuity Class-AB, 30W Mono", "Zero-feedback warmth for high-sensitivity speakers", "Made in USA", ["jazz", "orchestral"], true],
-            [0, "Emotiva BasX A1 Mono (Pair)", 800, "Class-A/B Linear PSU, 200W", "High-current entry monoblock slam", "Designed in USA", ["pop"], false],
-            [0, "Outlaw Audio Model 2220 (Pair)", 1000, "200W Fully Balanced Monoblocks", "Unbeatable mid-fi dynamic headroom", "Designed in USA", ["pop", "orchestral"], true],
-            [0, "Schiit Vidar 2 Mono (Pair)", 1600, "400W Continuity Microprocessor Biased", "Authoritative grip and holographic staging", "Made in USA", ["pop", "jazz"], true],
-            [0, "Orchard Audio Starkrimson Mono", 2500, "GaN FET Ultra-Low Distortion, 150W", "Tube-like liquidity with solid-state speed", "Made in USA", ["jazz", "orchestral"], false],
-            [0, "Schiit Tyr Choke-Input (Pair)", 3200, "Nexus Discrete, 20lb Choke PSU", "Effortless macro-dynamics and deep bass", "Made in USA", ["pop", "jazz", "orchestral"], true],
-            [0, "PS Audio Stellar M1200 (Pair)", 6000, "1200V Tube Input / Class-D Output", "Vacuum tube warmth meets 1200W muscle", "Made in USA", ["jazz", "pop"], true],
-            [0, "Parasound Halo JC 1+ (Pair)", 11000, "450W, 25W Pure Class-A John Curl", "Silky highs and subterranean bass authority", "Made in USA", ["all"], false],
-            [0, "ATM (Air Tight) ATM-1S", 13500, "EL34 Push-Pull Tube Stereo/Mono", "Legendary Japanese tube warmth and vocal intimacy", "Hand-crafted in Japan", ["jazz"], true],
-            [0, "Pass Labs XA100.8 (Pair)", 14000, "100W Pure Class-A Mosfet", "Lush midrange warmth, zero listener fatigue", "Made in USA", ["jazz", "orchestral"], true],
-            [0, "ATM (Air Tight) ATM-300R", 21000, "300B Single-Ended Triode, Tamura", "Breathtaking vocal realism and harmonic texture", "Hand-crafted in Japan", ["jazz"], true],
-            [0, "McIntosh MC1.25KW (Pair)", 29000, "1200W Quad Balanced Autoformer", "Iconic blue wattmeters, limitless headroom", "Made in USA", ["jazz", "pop"], true],
-            [0, "Gryphon Essence Mono", 48000, "Pure Class-A, Zero Global Feedback", "Velvet-gloved iron fist, rich Danish authority", "Made in Denmark", ["pop", "orchestral"], true],
-            [0, "CH Precision M10", 75000, "Flagship Swiss Monoblock", "Surgical neutrality and transient speed", "Swiss Made", ["orchestral"], true],
-            [0, "Kharma Exquisite MP1000", 75000, "Diamond-matched FET stage", "Silky Dutch resolution with explosive dynamics", "Made in Netherlands", ["orchestral", "jazz"], true],
-            [0, "Gryphon Apex Mono", 210000, "225W Pure Class-A, 450 lbs", "Gryphon's cost-no-object flagship statement", "Made in Denmark", ["orchestral", "pop"], true],
-
-            // 1: Pre-Amplifiers (Entry to Ultra)
-            [1, "Schiit Saga 2", 280, "Passive/Active Class-A Discrete Relay", "Zero-distortion relay attenuator bargain", "Made in USA", ["jazz", "pop", "orchestral"], true],
-            [1, "Topping Pre90", 600, "NFCA Ultra-Low Noise Balanced Preamp", "Instrument-grade transparency and ruler-flat response", "Made in China", ["orchestral", "pop"], true],
-            [1, "Schiit Kara", 700, "Nexus Discrete 128-Step Relay Preamp", "Pure analog staging with headphone output", "Made in USA", ["jazz", "pop"], false],
-            [1, "Schiit Freya+ Tube", 1100, "4x 6SN7 Vacuum Tube / Passive / JFET", "Switchable tube warmth for acoustic/jazz", "Made in USA", ["jazz"], true],
-            [1, "Parasound Halo P6", 1600, "Analog Bass Management + Phono Stage", "Versatile audiophile hub with warm tone", "Designed in USA", ["pop", "jazz"], false],
-            [1, "Benchmark LA4", 2600, "256-Step Gold Relay Line Amplifier", "Absolute studio reference transparency", "Made in USA", ["orchestral", "pop"], true],
-            [1, "PrimaLuna EVO 300 Preamp", 4700, "Dual-Rectified 6x 12AU7 Tube Stage", "Lush, holographic 3D soundstage", "Netherlands/China", ["jazz"], true],
-            [1, "McIntosh C2700 Tube", 8000, "Vacuum Tube Preamp + DA2 Module", "Classic McIntosh warmth & modern versatility", "Made in USA", ["jazz", "pop"], true],
-            [1, "ATM (Air Tight) ATC-5s", 12500, "3-Tube Line Stage with MM Phono", "Sweet, organic Japanese midrange magic", "Hand-crafted in Japan", ["jazz"], true],
-            [1, "Gryphon Pandora", 34000, "4-Chassis Dual-Mono Class-A Preamp", "Breathtaking dynamic contrast and realism", "Made in Denmark", ["orchestral", "pop"], true],
-            [1, "Kharma Exquisite P1000", 55000, "Pure Class-A Dual-Mono Reference", "Liquid, luxurious Dutch tonal balance", "Made in Netherlands", ["jazz", "orchestral"], true],
-            [1, "CH Precision L10", 77500, "Twin-Chassis Swiss Reference Line Stage", "Total transparency and modular control", "Swiss Made", ["orchestral"], true],
-
-            // 2: DACs (Entry to Ultra)
-            [2, "Schiit Modi+", 130, "ES9018 Unison USB Interface", "Best-in-class budget digital converter", "Made in USA", ["pop", "jazz"], true],
-            [2, "Topping E30 II", 150, "Dual AK4493S Sub-120dB SINAD", "Crisp, ultra-clean entry-level decoding", "Made in China", ["pop", "orchestral"], false],
-            [2, "iFi Zen DAC V3", 230, "Burr-Brown True Native DSD", "Warm, musical analog-voiced desktop DAC", "Designed in UK", ["jazz"], true],
-            [2, "Geshelli Labs J2S", 300, "AKM4499EX with Sparkos Discrete Op-Amps", "Rich, organic American-made mid-fi gem", "Made in USA", ["jazz", "pop"], true],
-            [2, "Schiit Bifrost 2/64", 800, "4x TI DAC8812 True Multibit Modular", "Punchy, rhythmic multibit staging", "Made in USA", ["pop", "jazz"], true],
-            [2, "Denafrips Ares 12th-1", 1000, "Discrete R-2R Ladder DAC", "Liquid, vinyl-like smoothness for vocals", "Made in China", ["jazz", "orchestral"], true],
-            [2, "Chord Qutest", 1900, "Custom Xilinx FPGA WTA Filter", "Uncanny timing, pace, and micro-detail", "Made in UK", ["pop", "orchestral"], true],
-            [2, "HoloAudio May KTE", 5600, "Dual-Chassis Discrete R-2R NOS DAC", "Phenomenal timbre and holographic width", "Made in China", ["jazz", "orchestral"], true],
-            [2, "Weiss DAC501", 10000, "Swiss DSP Room EQ & Mastering DAC", "Studio mastering precision and phase accuracy", "Swiss Made", ["orchestral"], true],
-            [2, "dCS Bartok Apex", 20000, "Ring DAC Apex Hardware", "Micro-detail resolution and 3D imaging", "Made in UK", ["orchestral", "jazz"], true],
-            [2, "Gryphon Kalliope", 29000, "8x Sabre Dual-Mono Class-A DAC", "Dark, authoritative digital playback", "Made in Denmark", ["orchestral", "pop"], true],
-            [2, "CH Precision C1.2", 50000, "Modular Swiss Reference Controller", "Unrivaled digital processing architecture", "Swiss Made", ["orchestral"], true],
-
-            // 3: Time Clocks (Entry to Ultra)
-            [3, "iFi Audio iPurifier3 / Reclocker", 150, "Active USB Jitter & Noise Eliminator", "Tightens bass and removes digital glare", "Designed in UK", ["pop", "jazz", "orchestral"], true],
-            [3, "Douk Audio 10MHz OCXO", 260, "Oven-Controlled Crystal Oscillator", "Affordable entry into external 10MHz clocking", "Made in China", ["jazz", "pop"], false],
-            [3, "LHY Audio OCK-1", 500, "Ultra-Low Phase Noise OCXO Master Clock", "Sharpens vocal focus and soundstage depth", "Made in China", ["jazz", "orchestral"], true],
-            [3, "Gustard C18 10MHz Clock", 1200, "Constant-Temp Discrete Linear OCXO", "Blackens background noise floor", "Made in China", ["orchestral", "pop"], true],
-            [3, "Mutec MC3+ USB", 1400, "1G-Clock Tech & Format Converter", "German studio standard re-clocking", "Made in Germany", ["orchestral", "all"], true],
-            [3, "Antelope Audio 10MX", 7000, "Rubidium Atomic Master Clock", "Supreme studio imaging stability", "Made in Bulgaria", ["pop", "orchestral"], false],
-            [3, "dCS Rossini Master Clock", 11000, "Dual VCXO Reference Clock", "Locks acoustic timing and decay", "Made in UK", ["jazz", "orchestral"], true],
-            [3, "CH Precision T1", 35700, "10MHz GPS-Disciplined Time Reference", "Zero drift, ultimate temporal accuracy", "Swiss Made", ["orchestral"], true],
-
-            // 4: SACD / Disc Players (Entry to Ultra)
-            [4, "Sony UBP-X800M2 SACD", 300, "Rigid Frame SACD / DSD Disc Transport", "Unbeatable entry-level SACD disc playback", "Made in Malaysia", ["pop", "jazz", "orchestral"], true],
-            [4, "Yamaha CD-S303", 400, "Pure Direct Mode & Intelligent Servo", "Clean, reliable entry disc player", "Made in Malaysia", ["jazz", "pop"], false],
-            [4, "Marantz CD6007", 750, "HDAM-SA2 Discrete Analog Stage", "Warm, musical Marantz midrange", "Made in Vietnam", ["jazz"], true],
-            [4, "Denon DCD-1700NE SACD", 1500, "Advanced AL32 Processing Plus SACD", "Heavy anti-vibration chassis, rich harmonics", "Made in Japan", ["jazz", "orchestral"], true],
-            [4, "Marantz SACD 30n", 3000, "Marantz Musical Mastering DSD Engine", "Lush, fatigue-free SACD and network playback", "Made in Japan", ["jazz"], true],
-            [4, "McIntosh MCD600 SACD", 8000, "8-Channel Premium DAC & Rigid Transport", "Punchy dynamics and illuminated glass faceplate", "Made in USA", ["jazz", "pop"], true],
-            [4, "Esoteric K-05XD", 11000, "VRDS-ATLAS Clamping SACD Transport", "Surgical detail and tank-like mechanism", "Made in Japan", ["orchestral", "pop"], true],
-            [4, "Gryphon Ethos SACD", 39800, "Top-Loading SACD Transport + Dual DAC", "Monumental Danish authority and industrial art", "Made in Denmark", ["orchestral", "pop"], true],
-
-            // 5: Vinyl Turntables (Entry to Ultra)
-            [5, "Fluance RT82 Reference", 300, "Servo-Controlled Motor + Ortofon OM10", "Best entry-level speed stability and warmth", "Designed in Canada", ["jazz", "pop"], true],
-            [5, "Fluance RT85 Acrylic", 500, "Acrylic Platter + Ortofon 2M Blue", "Upgraded cartridge resolution and bass grip", "Designed in Canada", ["pop", "jazz"], true],
-            [5, "Pro-Ject Debut Carbon EVO", 600, "One-Piece Carbon Fiber Tonearm", "Vibrant, punchy European analog sound", "Made in EU", ["pop", "orchestral"], true],
-            [5, "Rega Planar 3 (P3)", 1100, "RB330 Precision Tonearm + Glass Platter", "Legendary British pace, rhythm, and timing", "Made in UK", ["jazz", "pop"], true],
-            [5, "Technics SL-100C / 1500C", 1200, "Coreless Direct Drive Motor", "Rock-solid pitch accuracy, zero maintenance", "Made in Malaysia/Japan", ["pop", "orchestral"], true],
-            [5, "Clearaudio Concept", 2000, "Friction-Free Magnetic Bearing Tonearm", "Sleek German plug-and-play precision", "Made in Germany", ["orchestral", "pop"], false],
-            [5, "Rega Planar 8", 3500, "Skeletal Foam Plinth + RB880 Arm", "Agile, fast, and deeply revealing", "Made in UK", ["jazz", "orchestral"], true],
-            [5, "McIntosh MT2", 6000, "Belt-Drive High-Mass Platter", "Glowing green platter with rich analog tone", "Made in USA", ["jazz", "pop"], false],
-            [5, "Bang & Olufsen Beogram 4000c", 12000, "Recreated Tangential Tracking Icon", "Timeless Danish design and warm tracking", "Made in Denmark", ["jazz", "pop"], true],
-            [5, "Technics SL-1000R", 20000, "Reference Direct Drive + Magnesium Arm", "Broadcast-grade torque and vanishing noise", "Made in Japan", ["all"], true],
-            [5, "Gryphon Apollo", 150000, "Dual-Motor Constrained Layer Reference", "Monumental analog stability", "Made in Denmark", ["orchestral", "jazz"], true],
-
-            // 6: Power Conditioners (Entry to Ultra)
-            [6, "Furman PST-8 Digital", 220, "SMP Surge + LiFT Linear EMI Filtering", "Studio-proven budget AC line protection", "Designed in USA", ["pop", "jazz", "orchestral"], true],
-            [6, "iFi Audio PowerStation", 500, "Active Noise Cancellation II AC Bar", "Drops high-frequency switching noise", "Designed in UK", ["jazz", "pop"], false],
-            [6, "AudioQuest PowerQuest 303", 550, "Linear Noise-Dissipation Rack Unit", "Clean, uncompressed power for mid-fi systems", "Designed in USA", ["all"], true],
-            [6, "AudioQuest Niagara 1200", 1000, "Low-Z Ground Noise Dissipation", "Blackens background hash noticeably", "Designed in USA", ["jazz", "pop", "orchestral"], true],
-            [6, "IsoTek EVO3 Aquarius", 2200, "6-Way KERP Star-Earthed Conditioner", "Enhances micro-dynamics and soundstage air", "Made in UK", ["orchestral", "jazz"], true],
-            [6, "PS Audio DirectStream P12", 6000, "Active FPGA AC Power Regenerator", "Rebuilds pure 120V sine wave from scratch", "Made in USA", ["all"], true],
-            [6, "Gryphon PowerZone 3.20", 17500, "HafnerTech Crystalline Optimization", "Zero current limiting, expands 3D scale", "Made in Denmark", ["orchestral", "pop"], true],
-            [6, "Stromtank S 5000", 50000, "Off-Grid Lithium Battery AC Generator", "Complete isolation from utility grid noise", "Made in Germany", ["all"], true],
-
-            // 7: Network Players / Streamers (Entry to Ultra)
-            [7, "WiiM Pro Plus", 220, "Bit-Perfect Chromecast/AirPlay/Tidal Connect", "The undisputed king of budget audiophile streaming", "Designed in USA", ["pop", "jazz", "orchestral"], true],
-            [7, "WiiM Ultra Streamer", 330, "Touchscreen + Room Correction + HDMI ARC", "Incredible feature density and clean output", "Designed in USA", ["pop", "jazz"], true],
-            [7, "Bluesound Node (2025)", 550, "BluOS Multi-Room + THX AAA Headphone", "Slick app ecosystem and musical delivery", "Designed in Canada", ["jazz", "pop"], true],
-            [7, "Eversolo DMP-A6 Master", 1300, "Dual Femto Clocks + 6-inch Touchscreen", "Fast UI, M.2 SSD slot, studio transparency", "Made in China", ["orchestral", "pop"], true],
-            [7, "Lumin U2 Mini", 2400, "DSD512 Upsampling + Leedh Volume", "Dedicated audiophile streaming transport", "Hong Kong", ["orchestral", "jazz"], true],
-            [7, "Bang & Olufsen Beosound Core", 5000, "Mozart High-Res Streaming Engine", "Seamless B&O system integration", "Made in Denmark", ["pop", "jazz"], false],
-            [7, "HiFi Rose RS150B", 5000, "14.9-inch 4K Touchscreen Reference", "Visually stunning centerpiece streamer", "South Korea", ["all"], true],
-            [7, "Aurender N200", 6300, "SSD Caching + Linear Toroidal PSU", "Warm, organic, analog-like digital flow", "South Korea", ["jazz", "orchestral"], true],
-            [7, "Innuos Statement", 17000, "Next-Gen PSU + OCXO Clock", "Extracts breathtaking micro-details", "Made in Portugal", ["jazz", "orchestral"], true],
-            [7, "Taiko Audio SGM Extreme", 30000, "Dual Xeon Passive-Cooled Music Server", "The absolute cutting edge in streaming", "Made in Netherlands", ["orchestral", "all"], true],
-
-            // 8: Power Cables (Entry to Ultra)
-            [8, "Pangea Audio AC-14SE MkII", 50, "Cardas Grade One Copper + OFC Braid", "Best entry-level upgrade over stock cords", "Designed in USA", ["jazz", "pop", "orchestral"], true],
-            [8, "AudioQuest NRG-Y3", 130, "Long-Grain Copper Direction-Controlled", "Lowers background hum and grain", "Designed in USA", ["jazz", "pop"], true],
-            [8, "Shunyata Research Venom V14", 250, "OFE Copper + Fluorocarbon Dielectric", "Medical-grade contacts, tightens bass", "Made in USA", ["pop", "orchestral"], true],
-            [8, "AudioQuest Monsoon", 450, "Perfect-Surface Copper+ & ZERO-Tech", "Uncompressed current transfer", "Designed in USA", ["all"], false],
-            [8, "Nordost Heimdall 2 Power", 900, "Micro Mono-Filament Silver-Plated OFC", "Fast transients and open top-end air", "Made in USA", ["pop", "orchestral"], true],
-            [8, "Gryphon Vanta Power", 6000, "Silver-Gold Alloy Conductors", "Unrestricted current and pitch-black background", "Made in Denmark", ["pop", "orchestral"], true],
-            [8, "Kharma Enigma Veyron Power", 22000, "Pure Silver-Gold + Carbon Armor", "Extreme isolation and dynamic flow", "Made in Netherlands", ["orchestral", "jazz"], true],
-
-            // 9: XLR Cables (Entry to Ultra)
-            [9, "Worlds Best Cables Mogami 2534", 50, "Mogami Neglex Quad + Neutrik Gold XLR", "Pro-studio noise rejection at a bargain price", "Assembled in USA", ["jazz", "pop", "orchestral"], true],
-            [9, "Blue Jeans Cable Belden 1800F", 90, "Ultra-Low Capacitance AES/Balanced", "Zero coloration, bulletproof US build", "Made in USA", ["orchestral", "pop"], true],
-            [9, "AudioQuest Red River XLR", 200, "Solid Long-Grain Copper + Nitrogen Foam", "Smooths out harsh digital edges", "Designed in USA", ["jazz"], false],
-            [9, "Cardas Iridium XLR", 400, "Golden Ratio Litz Copper", "Rich, warm, forgiving midrange", "Made in USA", ["jazz"], true],
-            [9, "AudioQuest Water XLR", 900, "Solid PSC+ Copper + 72V DBS", "Full-bodied, dimensional staging", "Made in USA", ["jazz", "orchestral"], true],
-            [9, "Cardas Clear XLR", 3500, "Matched Propagation Conductors", "Reference musicality and holographic depth", "Made in USA", ["jazz", "orchestral"], true],
-            [9, "Gryphon Vanta XLR", 7000, "Silver-Gold Balanced Interconnect", "Zero grain, explosive dynamic contrast", "Made in Denmark", ["orchestral", "pop"], true],
-            [9, "Kharma Enigma Veyron XLR", 25000, "Cryo Silver-Gold Balanced Link", "Luxurious Dutch midrange density", "Made in Netherlands", ["jazz", "orchestral"], true],
-
-            // 10: Optical / Digital Cables (Entry to Ultra)
-            [10, "AudioQuest Pearl Optical", 35, "Low-Dispersion Fiber Optic Core", "Clean, reliable budget optical link", "Designed in USA", ["pop", "jazz", "orchestral"], true],
-            [10, "Lifatec Silflex Glass TOSLINK", 150, "470-Strand Precision Borosilicate Glass", "True glass fiber bandwidth at a fair price", "Made in USA", ["orchestral", "jazz", "pop"], true],
-            [10, "AudioQuest Vodka Optical", 400, "217-Fiber Narrow-Aperture Bundle", "High-speed transient accuracy", "Designed in USA", ["pop", "orchestral"], false],
-            [10, "Wireworld Supernova 7 Glass", 500, "338 Micro-Polished Glass Fibers", "Reference optical clarity and micro-detail", "Made in USA", ["orchestral", "jazz"], true],
-            [10, "Nordost Valhalla 2 Digital", 3000, "Dual Mono-Filament Coax/AES", "Flawless impedance-matched transfer", "Made in USA", ["orchestral", "pop"], true],
-            [10, "Gryphon Vanta Digital", 4000, "Silver-Gold 75/110-Ohm Reference", "Eliminates timing jitter", "Made in Denmark", ["orchestral", "pop"], true],
-
-            // 11: RCA Cables (Entry to Ultra)
-            [11, "Blue Jeans Cable LC-1 RCA", 45, "11pF/ft Ultra-Low Capacitance Copper", "Engineered in Seattle for zero high-frequency rolloff", "Made in USA", ["pop", "jazz", "orchestral"], true],
-            [11, "Worlds Best Cables Mogami 2964", 55, "Japanese Mogami Coax + Amphenol Gold", "Flexible, dead-quiet studio RCA", "Assembled in USA", ["jazz", "pop"], true],
-            [11, "AudioQuest Golden Gate RCA", 100, "Solid PSC Copper + Foamed-PE", "Clean, punchy entry-level upgrade", "Designed in USA", ["pop", "jazz"], false],
-            [11, "Chord Company Shawline RCA", 350, " Tuned ARAY Silver-Plated PTFE", "Rhythmic British coherence and detail", "Made in UK", ["pop", "orchestral"], true],
-            [11, "Cardas Parsec RCA", 480, "Star-Quad Golden Section Copper", "Lush vocal warmth and sweet highs", "Made in USA", ["jazz"], true],
-            [11, "ATM (Air Tight) Reference RCA", 3000, "High-Purity OCC Copper Tube Link", "Voiced specifically for vacuum tube gear", "Made in Japan", ["jazz"], true],
-            [11, "Gryphon Vanta RCA", 6000, "Silver-Gold Single-Ended Reference", "Liquid harmonic decay", "Made in Denmark", ["jazz", "orchestral"], true],
-            [11, "Kharma Enigma Veyron RCA", 24000, "Flagship Dutch Interconnect", "Unmatched tonal purity", "Made in Netherlands", ["jazz", "orchestral"], true],
-
-            // 12: Speaker Cables (Entry to Ultra)
-            [12, "Blue Jeans Cable 10-AWG Belden", 80, "Ultrasonically-Welded Locking Bananas", "Zero-resistance 10-gauge pure copper", "Made in USA", ["pop", "jazz", "orchestral"], true],
-            [12, "QED XT40i X-Tube", 180, "Air-Core Tubular Oxygen-Free Copper", "Award-winning British clarity and timing", "Designed in UK", ["jazz", "pop"], true],
-            [12, "Kimber Kable 8PR", 320, "16-Strand VariStrand Braided Copper", "Classic braided RFI rejection and punchy midbass", "Made in USA", ["pop", "jazz"], true],
-            [12, "AudioQuest Rocket 33", 450, "Solid LGC & PSC Double Star-Quad", "Smooth midrange and tight bass control", "Designed in USA", ["jazz", "orchestral"], false],
-            [12, "ProAc Response Signature Spk", 1800, "Multi-Strand British OFC Reference", "Tailored for ProAc & British monitors", "Made in UK", ["jazz"], true],
-            [12, "Cardas Clear Speaker", 4000, "Matched Propagation Concentric Copper", "Effortless, fatigue-free musicality", "Made in USA", ["jazz", "orchestral"], true],
-            [12, "Gryphon Vanta Speaker", 16000, "Silver-Gold Multi-Core Ribbon", "Iron-fisted bass grip and crystalline air", "Made in Denmark", ["pop", "orchestral"], true],
-            [12, "Kharma Enigma Veyron Speaker", 45000, "Massive Silver-Gold + Vibration Armor", "Cost-no-object Dutch speaker transmission", "Made in Netherlands", ["orchestral", "jazz"], true],
-
-            // 13: Speakers (Entry $300 up to Ultra $2,000,000)
-            [13, "ELAC Debut 3.0 DB63", 450, "Aramid-Fiber Woofer + Aluminum Tweeter", "Giant-killing entry bookshelf warmth and punch", "Designed by Andrew Jones/ELAC", ["pop", "jazz"], true],
-            [13, "KEF Q150 / Q350 Meta", 600, "Uni-Q Concentric Driver Array", "Pinpoint holographic imaging on a budget", "Designed in UK", ["jazz", "pop", "orchestral"], true],
-            [13, "Wharfedale Diamond 12.2", 600, "Klarity Polypropylene Cone + Soft Dome", "Smooth, natural British vocal presentation", "Designed in UK", ["jazz"], false],
-            [13, "Klipsch RP-600M II", 750, "90x90 Tractrix Horn + Cerametallic Cone", "High-efficiency live dynamics and excitement", "Designed in USA", ["pop", "jazz"], true],
-            [13, "KEF LS50 Meta", 1600, "12th-Gen Uni-Q with Metamaterial Absorption", "The modern benchmark for compact monitor clarity", "Designed in UK", ["orchestral", "pop", "jazz"], true],
-            [13, "Wharfedale Linton Heritage", 1800, "3-Way 8-inch Kevlar Woofer + Stands", "Rich, nostalgic, room-filling warmth", "Designed in UK", ["jazz"], true],
-            [13, "Sonus Faber Lumina V", 3000, "Lute-Shaped Midrange + DAD Silk Tweeter", "Genuine Italian leather, wood, and vocal beauty", "Made in Italy", ["jazz", "orchestral"], true],
-            [13, "MoFi SourcePoint 888", 5000, "Dual 8-inch Woofers + 8-inch Concentric", "Andrew Jones' full-range dynamic powerhouse", "Designed in USA", ["pop", "jazz", "orchestral"], true],
-            [13, "ProAc Response DT8", 5000, "Dual 6.5-inch Drivers + Silk Dome", "Punchy bass and classic British midrange", "Made in UK", ["jazz", "pop"], false],
-            [13, "ProAc Response D20R", 6000, "ProAc Ribbon Tweeter + Glass-Fiber Cone", "Sweet, airy highs and lifelike acoustic vocals", "Made in UK", ["jazz"], true],
-            [13, "Klipsch Cornwall IV", 6600, "3-Way Horn-Loaded + 15-inch Woofer", "102dB sensitivity, effortless concert scale", "Made in USA", ["pop", "jazz"], true],
-            [13, "ATM (Air Tight) AL-05 Bonsai", 6000, "Single Full-Range Driver, Hand-Crafted Wood", "Magical nearfield vocal intimacy with tube amps", "Hand-crafted in Japan", ["jazz"], true],
-            [13, "Bang & Olufsen Beolab 8", 7500, "Sculpted Aluminum + Room Compensation", "Compact Danish luxury with surprising punch", "Made in Denmark", ["pop", "jazz"], false],
-            [13, "ProAc Response D30RS", 9000, "Alnico Ribbon Tweeter + Carbon Cone", "Effortless musicality and pinpoint staging", "Made in UK", ["jazz", "orchestral"], true],
-            [13, "Bowers & Wilkins 804 D4", 14000, "Diamond Dome Tweeter + Continuum Cone", "Smooth top end, classic studio/jazz favorite", "Made in UK", ["jazz", "orchestral"], true],
-            [13, "Bang & Olufsen Beolab 28", 18500, "Motorized Oak Lamellas + Beam Control", "Adapts dispersion for solo jazz or wide rooms", "Made in Denmark", ["jazz", "pop"], true],
-            [13, "Wilson Audio SabrinaX", 19000, "X-Material Cabinet + Convergent Tweeter", "Explosive dynamic punch and soundstage depth", "Made in USA", ["pop", "orchestral"], true],
-            [13, "Gryphon EOS 2", 22500, "Stealth Faceted Enclosure + Beryllium", "Monumental Danish slam for medium rooms", "Made in Denmark", ["pop", "orchestral"], true],
-            [13, "Harbeth M40.3 XD", 24000, "3-Way Thin-Wall Cabinet + RADIAL2", "The ultimate BBC-heritage vocal realism", "Made in UK", ["jazz"], true],
-            [13, "Kharma Elegance dB7-S", 28000, "Pure Beryllium Tweeter + Omega-7 Carbon", "Seductive, liquid Dutch midrange", "Made in Netherlands", ["jazz", "orchestral"], true],
-            [13, "ProAc K6 Signature", 32000, "Kevlar Woofer, Dome Mid, Ribbon Tweeter", "Astonishing British midrange transparency", "Made in UK", ["jazz", "orchestral"], true],
-            [13, "ProAc K10", 48000, "Flagship Dual 8-inch Kevlar + Ribbon", "The pinnacle of ProAc's 50-year heritage", "Made in UK", ["jazz", "orchestral"], true],
-            [13, "Bang & Olufsen Beolab 50", 55000, "2100W Active DSP + Motorized Lens", "Iconic Danish craftsmanship and precision", "Made in Denmark", ["pop", "orchestral", "jazz"], true],
-            [13, "Bang & Olufsen Beolab 90", 115000, "8200W per Speaker, 18 Scan-Speak Drivers", "360-degree beamforming flagship masterpiece", "Made in Denmark", ["pop", "orchestral", "all"], true],
-            [13, "Gryphon Trident II", 135000, "Active Bass Towers + AMT Tweeter", "Effortless full-range concert hall scale", "Made in Denmark", ["orchestral", "pop"], true],
-            [13, "Kharma Exquisite Grand", 240000, "Symmetric Diamond & Omega-F Array", "True reference luxury and effortless scale", "Made in Netherlands", ["orchestral", "jazz"], true],
-            [13, "Gryphon Kodo", 380000, "4-Tower Modular Flagship, 38 Drivers", "Unrivaled physical impact and resolution", "Made in Denmark", ["orchestral", "pop"], true],
-            [13, "Kharma Enigma Veyron EV-1", 650000, "Flagship 8-Driver Omega-F & Diamond", "The absolute summit of Kharma engineering", "Made in Netherlands", ["orchestral", "jazz"], true],
-            [13, "Magico M9", 750000, "Carbon/Aluminum Honeycomb + Beryllium", "Bleeding-edge loudspeaker engineering", "Made in USA", ["orchestral", "all"], true],
-
-            // 14: USB Cables (Entry to Ultra)
-            [14, "AudioQuest Pearl USB", 40, "Solid Long-Grain Copper Conductors", "Low-jitter entry-level USB connection", "Designed in USA", ["pop", "jazz", "orchestral"], true],
-            [14, "Supra Cables USB 2.0 Excalibur", 140, "PE-Insulated Twisted Pair + Silver-Plated", "Swedish lab-tested high-speed integrity", "Made in Sweden", ["orchestral", "pop"], true],
-            [14, "AudioQuest Carbon USB", 250, "5% Solid Silver + Carbon-Mesh Noise System", "Drops USB power-line hash noticeably", "Designed in USA", ["jazz", "pop"], false],
-            [14, "Curious Cables Evolved USB", 450, "Separate Power Line + Silver Conductors", "Opens up 3D soundstage and vocal air", "Made in Australia", ["jazz", "orchestral"], true],
-            [14, "AudioQuest Diamond USB", 900, "100% Perfect-Surface Silver + 72V DBS", "Reference digital silence and fluidity", "Made in USA", ["jazz", "orchestral"], true],
-            [14, "Gryphon Vanta USB", 3000, "Isolated Silver-Gold Reference USB", "Silences digital noise floor", "Made in Denmark", ["orchestral", "pop"], true],
-            [14, "Kharma Exquisite USB", 5000, "Pure Cryo-Treated Silver USB Link", "Fluid, analog-like USB transmission", "Made in Netherlands", ["jazz", "orchestral"], true]
-        ];
-
         const brandWebsites = {
-            "Fosi": "https://fosiaudio.com/",
-            "Schiit": "https://www.schiit.com/",
+            "Fosi Audio": "https://fosiaudio.com/",
             "WiiM": "https://www.wiimhome.com/",
+            "Schiit": "https://www.schiit.com/",
             "Topping": "https://www.toppingaudio.com/",
-            "Geshelli": "https://geshelli.com/",
-            "Emotiva": "https://emotiva.com/",
-            "Outlaw": "https://outlawaudio.com/",
-            "Fluance": "https://www.fluance.com/",
-            "Pro-Ject": "https://www.project-audio.com/",
             "ELAC": "https://www.elac.com/",
             "Wharfedale": "https://www.wharfedale.co.uk/",
+            "Emotiva": "https://emotiva.com/",
+            "Fluance": "https://www.fluance.com/",
+            "Pro-Ject": "https://www.project-audio.com/",
             "Cambridge": "https://www.cambridgeaudio.com/",
             "NAD": "https://nadelectronics.com/",
             "Bluesound": "https://www.bluesound.com/",
             "Rega": "https://www.rega.co.uk/",
             "KEF": "https://us.kef.com/",
             "Klipsch": "https://www.klipsch.com/",
-            "Blue Jeans": "https://www.bluejeanscable.com/",
-            "Worlds Best": "https://www.amazon.com/stores/WORLDSBESTCABLES/page/28219225-26C0-467D-B62F-4F22372A1E2E",
-            "Furman": "https://furmanpower.com/",
+            "Bowers & Wilkins": "https://www.bowerswilkins.com/",
+            "Harbeth": "https://harbeth.co.uk/",
             "Gryphon": "https://gryphon-audio.dk/",
             "Bang & Olufsen": "https://www.bang-olufsen.com/",
             "Kharma": "https://kharma.com/",
@@ -1343,108 +1237,218 @@
             "ATM": "https://www.airtight-anm.com/",
             "McIntosh": "https://www.mcintoshlabs.com/",
             "CH Precision": "https://www.ch-precision.com/",
-            "Bowers & Wilkins": "https://www.bowerswilkins.com/",
             "Magico": "https://www.magicoaudio.com/",
-            "Wilson Audio": "https://www.wilsonaudio.com/"
+            "Wilson Audio": "https://www.wilsonaudio.com/",
+            "Sonus Faber": "https://www.sonusfaber.com/",
+            "Pass Labs": "https://www.passlabs.com/",
+            "Audio Research": "https://www.audioresearch.com/",
+            "AudioQuest": "https://www.audioquest.com/",
+            "Nordost": "https://www.nordost.com/",
+            "Cardas": "https://www.cardas.com/",
+            "Blue Jeans": "https://www.bluejeanscable.com/",
+            "Mogami": "https://mogamicable.com/"
         };
 
         function getBrandWebsiteUrl(productName) {
             for (const [brandKey, url] of Object.entries(brandWebsites)) {
-                if (productName.toLowerCase().includes(brandKey.toLowerCase())) return url;
+                if (productName.toLowerCase().includes(brandKey.toLowerCase())) {
+                    return url;
+                }
             }
-            return `https://www.google.com/search?q=${encodeURIComponent(productName + " official site")}`;
+            return `https://www.google.com/search?q=${encodeURIComponent(productName + " official audiophile product")}`;
         }
 
-        function getPriceTierLabel(price, isCable) {
-            if (isCable) {
-                if (price <= 150) return "Entry Loom";
-                if (price <= 800) return "Mid-Fi Reference";
-                if (price <= 4000) return "High-End";
-                return "Statement Loom";
-            }
-            if (price <= 800) return "Entry Audiophile";
-            if (price <= 4000) return "Mid-Fi Hi-Fi";
-            if (price <= 25000) return "High-End";
-            if (price <= 100000) return "Reference";
-            return "Statement Flagship";
-        }
+        // Authentic Curated Database spanning Entry ($25-$500), Mid-Fi ($500-$5,000), High-End ($5,000-$50,000), and Ultra ($50,000+)
+        const curatedModels = [
+            // 0: Mono Block Amplifiers (Entry to Summit)
+            [0, "Fosi Audio V3 Mono (Pair)", 280, "TI TPA3255 PFFB Class-D Monoblocks, 240W", "Unbeatable micro-budget monoblock clarity & grip", "Made in China", ["pop", "jazz", "orchestral"], true],
+            [0, "Schiit Rekkr Mono (Pair)", 300, "Discrete Class-A/B Desktop Monoblocks, 4W", "Sweet nearfield acoustic & vocal purity", "Made in USA", ["jazz"], false],
+            [0, "Schiit Gjallarhorn Mono (Pair)", 600, "Continuity Class-A/B Monoblocks, 30W", "High-current punch for efficient speakers", "Made in USA", ["jazz", "pop"], true],
+            [0, "Outlaw Audio Model 2220 (Pair)", 800, "200W into 8 Ohms Linear Monoblocks", "Massive headroom for budget home hi-fi", "Designed in USA", ["pop", "orchestral"], false],
+            [0, "Emotiva BasX A1 Mono (Pair)", 1000, "Class A/B, heavy toroidal power supply", "Authoritative entry-level bass slam", "Designed in USA", ["pop"], false],
+            [0, "Topping B200 Mono (Pair)", 1200, "Ultra-low distortion NFCA discrete mono", "Zero noise floor, surgical studio accuracy", "Made in China", ["orchestral", "pop"], true],
+            [0, "Schiit Vidar 2 Mono (Pair)", 1600, "400W Balanced Monoblock Pair, microprocessor bias", "Effortless mid-fi dynamic drive", "Made in USA", ["pop", "jazz", "orchestral"], true],
+            [0, "Schiit Tyr Mono (Pair)", 3200, "Nexus differential choke-input monoblocks", "Big iron authority and holographic staging", "Made in USA", ["jazz", "pop", "orchestral"], true],
+            [0, "PS Audio Stellar M1200 (Pair)", 6000, "1200W vacuum tube input + Class-D output", "Tube warmth meets limitless speaker grip", "Made in USA", ["jazz", "pop"], false],
+            [0, "Benchmark AHB2 Mono (Pair)", 7000, "THX-AAA feed-forward error correction", "Reference studio transparency", "Made in USA", ["orchestral"], true],
+            [0, "ATM (Air Tight) ATM-1S", 13500, "EL34 Push-Pull Stereo/Mono, Tamura transformers", "Legendary Japanese tube warmth and vocal intimacy", "Hand-crafted in Japan", ["jazz"], true],
+            [0, "Pass Labs XA100.8 (Pair)", 14000, "100W Pure Class-A solid-state monoblocks", "Lush, fatigue-free musicality and staging", "Made in USA", ["jazz", "orchestral"], false],
+            [0, "ATM (Air Tight) ATM-300R", 21000, "300B Single-Ended Triode, Tamura output", "Breathtaking vocal realism and harmonic bloom", "Hand-crafted in Japan", ["jazz"], true],
+            [0, "McIntosh MC1.25KW (Pair)", 29000, "1200W Quad Balanced Autoformer Monoblocks", "Iconic blue wattmeters and effortless power", "Made in USA", ["jazz", "pop"], true],
+            [0, "ATM (Air Tight) ATM-2211J Mono", 38000, "211 Triode Single-Ended Monoblocks", "Holographic soundstage, pure triode magic", "Hand-crafted in Japan", ["jazz", "orchestral"], true],
+            [0, "Gryphon Essence Mono", 48000, "Pure Class-A, Zero global feedback", "Velvet-gloved iron fist, rich and dynamic", "Made in Denmark", ["pop", "orchestral"], true],
+            [0, "CH Precision M10", 75000, "Flagship Swiss Monoblock, adjustable feedback", "Surgical neutrality and transient speed", "Swiss Made", ["orchestral"], true],
+            [0, "Gryphon Antileon EVO Mono", 90000, "150W Pure Class-A, dual toroidal PSU", "Authoritative bottom-end slam and black background", "Made in Denmark", ["pop", "orchestral"], false],
+            [0, "ATM (Air Tight) ATM-2001 Reference", 110000, "Flagship Multi-Tube Monoblock System", "The pinnacle of Japanese vacuum tube engineering", "Hand-crafted in Japan", ["jazz", "orchestral"], true],
+            [0, "Kharma Enigma Veyron Amp", 150000, "Bespoke Flagship Monoblock Architecture", "Engineered to drive the Enigma Veyron speakers", "Made in Netherlands", ["orchestral", "jazz"], true],
+            [0, "Gryphon Apex Mono", 210000, "225W Pure Class-A, 450 lbs per pair", "Gryphon's cost-no-object flagship statement", "Made in Denmark", ["orchestral", "pop"], true],
 
-        // Custom SVG Hardware Visualizer for Product Cards (Replaces ugly text placeholders)
-        function renderHardwareSVG(catId, name, price) {
-            const isGold = price >= 15000;
-            const strokeCol = isGold ? "#d4af37" : "#64748b";
-            const accentCol = "#d4af37";
-            const brandShort = name.split(" ")[0].toUpperCase();
+            // 1: Pre-Amplifiers (Entry to Summit)
+            [1, "Schiit Sys Passive Preamp", 60, "2-input passive stepped potentiometer", "Zero distortion, purest budget volume control", "Made in USA", ["jazz", "pop", "orchestral"], false],
+            [1, "Fosi Audio P3 Tube Preamp", 110, "Class-A vacuum tube buffer stage", "Adds warm tube harmonics to entry systems", "Made in China", ["jazz", "pop"], true],
+            [1, "Schiit Saga 2", 280, "Class-A discrete zero-feedback relay preamp", "Relay-switched precision Ladder volume", "Made in USA", ["jazz", "pop", "orchestral"], true],
+            [1, "Topping Pre90", 600, "NFCA ultra-low noise balanced preamplifier", "Transparent studio-grade signal control", "Made in China", ["orchestral", "pop"], false],
+            [1, "Schiit Kara", 700, "Nexus discrete balanced preamp, 128-step relay", "High-end topology at an approachable price", "Made in USA", ["jazz", "orchestral"], false],
+            [1, "Schiit Freya+ Tube Preamp", 1100, "4x 6SN7 tubes + passive/differential modes", "Switchable tube warmth or solid-state speed", "Made in USA", ["jazz", "pop"], true],
+            [1, "Parasound Halo P6", 1800, "2.1 Preamplifier with analog bass management", "Rich, full-bodied American preamp", "Designed in USA", ["pop", "jazz"], false],
+            [1, "Benchmark LA4", 2600, "256-step gold-contact relay gain stage", "Ruler-flat bandwidth and zero coloration", "Made in USA", ["orchestral"], true],
+            [1, "McIntosh C8 Tube Preamp", 4500, "Open-chassis vacuum tube preamplifier", "Lush McIntosh tube glow and warmth", "Made in USA", ["jazz"], true],
+            [1, "McIntosh C2700", 8000, "Vacuum tube preamp with DA2 digital module", "Classic warmth and modern connectivity", "Made in USA", ["jazz", "pop"], false],
+            [1, "Pass Labs XP-22", 10000, "Dual-chassis toroidal line stage", "Expansive 3D staging and natural timbre", "Made in USA", ["jazz", "orchestral"], false],
+            [1, "ATM (Air Tight) ATC-5s", 12500, "3-tube line stage with MM phono", "Sweet, organic midrange and tactile controls", "Hand-crafted in Japan", ["jazz"], true],
+            [1, "McIntosh C12000", 16000, "Two-chassis hybrid tube/solid-state reference", "Ultimate versatility and isolation", "Made in USA", ["jazz", "orchestral"], true],
+            [1, "Audio Research REF6SE", 19000, "Six 6H30 vacuum tubes, regulated PSU", "The benchmark for holographic tube decay", "Made in USA", ["jazz"], false],
+            [1, "Gryphon Pandora", 34000, "4-chassis dual-mono Class-A preamplifier", "Breathtaking dynamic contrast and realism", "Made in Denmark", ["orchestral", "pop"], true],
+            [1, "ATM (Air Tight) ATE-3011 Reference", 37000, "Flagship Vacuum Tube Control Amplifier", "Masterpiece of Japanese tube craftsmanship", "Hand-crafted in Japan", ["jazz", "orchestral"], true],
+            [1, "Kharma Exquisite P1000", 55000, "Pure Class-A dual-mono reference preamp", "Liquid, luxurious Dutch tonal balance", "Made in Netherlands", ["jazz", "orchestral"], true],
+            [1, "Gryphon Commander", 67500, "Flagship 4-chassis dual-mono preamplifier", "Absolute command over system dynamics", "Made in Denmark", ["orchestral", "pop"], true],
+            [1, "CH Precision L10", 77500, "Twin-chassis Swiss reference line stage", "Total transparency and modular control", "Swiss Made", ["orchestral"], true],
 
-            if (catId === 13) {
-                // Speakers SVG
-                return `<svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="65" y="10" width="38" height="95" rx="4" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <circle cx="84" cy="26" r="6" fill="#0d0f14" stroke="${accentCol}" stroke-width="1.2"/>
-                    <circle cx="84" cy="50" r="11" fill="#0d0f14" stroke="${strokeCol}" stroke-width="1.2"/>
-                    <circle cx="84" cy="80" r="13" fill="#0d0f14" stroke="${strokeCol}" stroke-width="1.2"/>
-                    <rect x="117" y="10" width="38" height="95" rx="4" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <circle cx="136" cy="26" r="6" fill="#0d0f14" stroke="${accentCol}" stroke-width="1.2"/>
-                    <circle cx="136" cy="50" r="11" fill="#0d0f14" stroke="${strokeCol}" stroke-width="1.2"/>
-                    <circle cx="136" cy="80" r="13" fill="#0d0f14" stroke="${strokeCol}" stroke-width="1.2"/>
-                </svg>`;
-            } else if (catId === 0) {
-                // Monoblock Amps SVG
-                return `<svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="35" y="32" width="68" height="54" rx="4" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <rect x="47" y="42" width="44" height="20" rx="2" fill="#09151b" stroke="${accentCol}" stroke-width="1"/>
-                    <path d="M55 58 L69 46" stroke="#38bdf8" stroke-width="1.5"/>
-                    <rect x="117" y="32" width="68" height="54" rx="4" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <rect x="129" y="42" width="44" height="20" rx="2" fill="#09151b" stroke="${accentCol}" stroke-width="1"/>
-                    <path d="M137 58 L151 46" stroke="#38bdf8" stroke-width="1.5"/>
-                </svg>`;
-            } else if (catId === 5) {
-                // Turntable SVG
-                return `<svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="40" y="65" width="140" height="22" rx="3" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <ellipse cx="98" cy="56" rx="42" ry="8" fill="#252934" stroke="${accentCol}" stroke-width="1.2"/>
-                    <line x1="155" y1="42" x2="122" y2="55" stroke="${accentCol}" stroke-width="2"/>
-                    <circle cx="155" cy="42" r="5" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                </svg>`;
-            } else if ((catId >= 8 && catId <= 12) || catId === 14) {
-                // Audiophile Cables SVG
-                return `<svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M45 65 C 45 25, 175 25, 175 65" stroke="${strokeCol}" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M45 65 C 45 25, 175 25, 175 65" stroke="${accentCol}" stroke-width="1.5" stroke-dasharray="4 4"/>
-                    <rect x="38" y="62" width="14" height="24" rx="2" fill="#161922" stroke="${accentCol}" stroke-width="1.5"/>
-                    <rect x="168" y="62" width="14" height="24" rx="2" fill="#161922" stroke="${accentCol}" stroke-width="1.5"/>
-                </svg>`;
-            } else {
-                // Rack Chassis Component (Preamp, DAC, Clock, SACD, Streamer, Conditioner)
-                return `<svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="30" y="36" width="160" height="44" rx="4" fill="#161922" stroke="${strokeCol}" stroke-width="1.5"/>
-                    <circle cx="52" cy="58" r="10" fill="#0d0f14" stroke="${accentCol}" stroke-width="1.2"/>
-                    <rect x="76" y="47" width="68" height="22" rx="2" fill="#090b10" stroke="#334155" stroke-width="1"/>
-                    <text x="110" y="61" fill="${accentCol}" font-family="monospace" font-size="9" text-anchor="middle">${brandShort}</text>
-                    <circle cx="168" cy="58" r="10" fill="#0d0f14" stroke="${accentCol}" stroke-width="1.2"/>
-                </svg>`;
-            }
-        }
+            // 2: DACs (Entry to Summit)
+            [2, "Schiit Modi+", 130, "ESS ES9018 Unison USB DAC", "Best-in-class $130 digital-to-analog converter", "Made in USA", ["pop", "jazz", "orchestral"], true],
+            [2, "Topping E30 II", 150, "Dual AK4493S sub-miniature hi-res DAC", "Velvety AKM midrange at a starter price", "Made in China", ["jazz", "pop"], false],
+            [2, "Schiit Modius E", 230, "Balanced XLR & RCA Unison USB DAC", "True balanced architecture for entry rigs", "Made in USA", ["jazz", "pop", "orchestral"], false],
+            [2, "Cambridge Audio DacMagic 200M", 550, "Dual ESS ES9028Q2M, switchable filters", "Smooth, musical British digital conversion", "Designed in UK", ["jazz", "pop"], true],
+            [2, "Eversolo DAC-Z8", 700, "ESS ES9038Pro flagship chip, low-ripple PSU", "Reference measurements at mid-fi pricing", "Made in China", ["orchestral", "pop"], false],
+            [2, "Denafrips Ares 12th-1", 1000, "Discrete R-2R resistor ladder DAC", "True analog-like R-2R warmth under $1k", "Made in China", ["jazz", "orchestral"], true],
+            [2, "RME ADI-2 DAC FS", 1300, " German mastering-grade DAC + parametric EQ", "Surgical studio precision and loudness contour", "Made in Germany", ["orchestral", "pop"], false],
+            [2, "Chord Qutest", 1900, "Custom Xilinx FPGA, Watts Transient Aligned", "Addictive rhythmic timing and clarity", "Made in UK", ["pop", "jazz"], true],
+            [2, "Schiit Yggdrasil+ MIB", 2400, "Multibit TI DAC11001B modular architecture", "Legendary layering and acoustic realism", "Made in USA", ["jazz", "orchestral"], false],
+            [2, "Bang & Olufsen Beoconnect DAC", 5000, "High-resolution DSP & Beolink DAC", "Seamless Scandinavian acoustic integration", "Made in Denmark", ["pop", "jazz"], true],
+            [2, "HoloAudio May KTE", 5600, "Dual-chassis discrete R-2R & DSD ladder", "Liquid, grain-free NOS presentation", "Made in China", ["jazz", "orchestral"], true],
+            [2, "Weiss DAC501", 10000, "Swiss studio DSP room EQ & de-essing", "Mastering studio accuracy at home", "Swiss Made", ["orchestral"], false],
+            [2, "dCS Bartok Apex", 20000, "Ring DAC Apex discrete hardware", "Holographic micro-detail and staging", "Made in UK", ["orchestral", "jazz"], true],
+            [2, "Gryphon Kalliope", 29000, "8x ESS Sabre dual-mono Class-A DAC", "Dark, analog-like weight with extreme detail", "Made in Denmark", ["orchestral", "pop"], true],
+            [2, "CH Precision C1.2", 50000, "Modular Swiss Reference DAC Controller", "Unrivaled digital processing architecture", "Swiss Made", ["orchestral"], false],
+            [2, "dCS Vivaldi Apex DAC", 50000, "Flagship Ring DAC Apex", "State-of-the-art digital decoding", "Made in UK", ["orchestral", "jazz"], true],
+            [2, "Wadax Atlantis Reference DAC", 145000, "musIC feed-forward error correction", "Rewrites what digital audio can sound like", "Made in Spain", ["orchestral", "jazz"], true],
 
-        let db = [];
-        let weekOffset = parseInt(localStorage.getItem('audiophile_week_offset') || '0');
+            // 3: Time Clocks (Entry to Summit)
+            [3, "iFi Audio iPurifier3 Reclocker", 150, "Active USB signal & clock regenerator", "Eliminates USB jitter in starter systems", "Designed in UK", ["jazz", "pop", "orchestral"], true],
+            [3, "SMSL PO100 Pro Reclocker", 100, "XMOS XU316 digital interface & clock", "Ultra-affordable digital timing cleanup", "Made in China", ["pop", "jazz"], false],
+            [3, "Topping U90 Master Reclocker", 400, "Femtosecond crystal oscillator bridge", "Lowers jitter for entry-to-mid DACs", "Made in China", ["orchestral", "pop"], false],
+            [3, "Singxer SU-6 Femto Clock", 650, " Crystek CCHD-957 femtosecond supercapacitor", "Silky, fatigue-free digital timing", "Made in China", ["jazz", "orchestral"], true],
+            [3, "Mutec MC3+ USB", 1100, "1G-Clock studio re-clocking engine", "Tightens bass and locks stereo focus", "Made in Germany", ["orchestral", "pop"], true],
+            [3, "Denafrips Terra OCXO", 1500, "Oven-Controlled Crystal Oscillator clock", "Natural, organic timing for R-2R DACs", "Made in China", ["jazz", "orchestral"], false],
+            [3, "Grimm Audio CC1", 3000, "Ultra-low phase noise master word clock", "Expands soundstage width and depth", "Made in Netherlands", ["orchestral"], false],
+            [3, "Antelope Audio 10MX", 7000, "Rubidium atomic master clock", "Rock-solid studio imaging stability", "Made in Bulgaria", ["pop", "orchestral"], false],
+            [3, "Aurender MC10", 15000, "Rubidium 10MHz reference clock", "Effortless musical flow for digital stacks", "Made in South Korea", ["jazz", "orchestral"], false],
+            [3, "Esoteric G-01X", 20000, "Master Sound Discrete Clock", "Pinpoint Japanese temporal precision", "Made in Japan", ["orchestral"], true],
+            [3, "CH Precision T1", 35700, "10MHz GPS-disciplined time reference", "Zero drift, ultimate Swiss synchronization", "Swiss Made", ["orchestral"], true],
 
-        const entryAndMidBrands = {
-            jazz: ["Schiit", "Rega", "Wharfedale", "NAD", "Cambridge", "Marantz", "Denon", "Pro-Ject", "Cardas", "QED", "ProAc", "Sonus Faber"],
-            pop: ["Fosi Audio", "WiiM", "Topping", "Emotiva", "Fluance", "ELAC", "Klipsch", "Bluesound", "Outlaw Audio", "Kimber Kable"],
-            orchestral: ["KEF", "Topping", "Schiit", "Benchmark", "Gustard", "Technics", "Blue Jeans Cable", "Worlds Best Cables", "Wireworld", "Furman"]
-        };
+            // 4: SACD Players (Entry to Summit)
+            [4, "Sony UBP-X800M2 SACD Transport", 300, "Rigid frame-and-beam SACD/DSD transport", "Best budget way to play physical SACDs", "Made in Malaysia", ["pop", "jazz", "orchestral"], true],
+            [4, "Yamaha CD-S303", 380, "Pure Direct optical disc player", "Clean, reliable entry disc playback", "Made in Malaysia", ["jazz", "pop"], false],
+            [4, "Marantz CD60", 1000, "HDAM-SA2 discrete analog output stage", "Warm, rich Marantz musicality", "Designed in Japan", ["jazz"], true],
+            [4, "Arcam CDS50 SACD Player", 1200, "32-bit ESS9038 SACD/CD player", "Detailed British acoustic presentation", "Designed in UK", ["jazz", "orchestral"], false],
+            [4, "Denon DCD-1700NE SACD", 1500, "Advanced AL32 Processing Plus, S.V.H. drive", "Rock-solid SACD playback at $1,500", "Made in Japan", ["jazz", "pop", "orchestral"], true],
+            [4, "Marantz SACD 30n", 3000, "Marantz Musical Mastering DSD converter", "Lush vocal texture and sweet highs", "Made in Japan", ["jazz"], true],
+            [4, "Technics SL-G700M2", 3500, "Coherent Processing dual-mono SACD player", "Silent drive mechanism and holographic stage", "Made in Japan", ["orchestral", "pop"], false],
+            [4, "McIntosh MCT500 Transport", 4500, "Twin-laser optical SACD transport", "Pairs seamlessly with McIntosh DACs", "Made in USA", ["jazz", "pop"], false],
+            [4, "McIntosh MCD600", 8000, "8-channel premium SACD/CD player", "Authoritative dynamics and classic glass faceplate", "Made in USA", ["jazz", "pop"], false],
+            [4, "Esoteric K-05XD", 11000, "VRDS-ATLAS clamping SACD mechanism", "Indestructible build and surgical detail", "Made in Japan", ["orchestral"], true],
+            [4, "Luxman D-10X", 16500, "LxDTM-i drive, ROHM MUS-IC DACs", "Silky, organic Japanese flagship SACD", "Made in Japan", ["jazz", "orchestral"], false],
+            [4, "Gryphon Ethos SACD/DAC", 39800, "Top-loading SACD transport & dual-mono DAC", "Striking sculptural design, monumental sound", "Made in Denmark", ["orchestral", "pop"], true],
+            [4, "CH Precision D1.5", 54600, "SACD/CD Reference Transport Drive", "Flawless Swiss physical media extraction", "Swiss Made", ["orchestral"], true],
 
-        const highEndBrands = {
-            jazz: ["ProAc", "ATM (Air Tight)", "Kharma", "McIntosh", "Bang & Olufsen", "Bowers & Wilkins", "Sonus Faber", "Harbeth", "Audio Research", "Pass Labs", "Luxman"],
-            pop: ["Gryphon", "Bang & Olufsen", "Dan D'Agostino", "Focal", "Wilson Audio", "Naim", "Chord Electronics", "Boulder", "Nordost"],
-            orchestral: ["Gryphon", "Kharma", "ProAc", "ATM (Air Tight)", "CH Precision", "Soulution", "dCS", "MSB Technology", "Wadax", "Magico", "Siltech"]
-        };
+            // 5: Vinyl Turntables (Entry to Summit)
+            [5, "Fluance RT82 Reference", 300, "Optical speed-controlled motor, Ortofon OM10", "Best $300 entry into true audiophile vinyl", "Designed in Canada", ["jazz", "pop"], true],
+            [5, "Audio-Technica AT-LP120X", 350, "Direct-drive quartz servo, AT-VM95E cartridge", "Rock-steady pitch and DJ/hi-fi versatility", "Made in China", ["pop"], false],
+            [5, "Fluance RT85", 500, "Acrylic platter, Ortofon 2M Blue cartridge", "Unbeatable cartridge + acrylic platter value", "Designed in Canada", ["jazz", "pop", "orchestral"], true],
+            [5, "Pro-Ject Debut Carbon EVO", 600, "One-piece carbon fiber tonearm, Sumiko Rainier", "Warm, engaging European vinyl playback", "Made in EU", ["jazz", "pop"], true],
+            [5, "Rega Planar 2", 775, "RB220 precision tonearm, float glass platter", "Lively British pace, rhythm, and timing", "Made in UK", ["jazz", "pop"], false],
+            [5, "Rega Planar 3", 1100, "RB330 tonearm, phenolic resin bracing", "A multi-decade icon of audiophile vinyl", "Made in UK", ["jazz", "pop"], true],
+            [5, "Technics SL-1500C", 1300, "Coreless direct drive, Ortofon 2M Red", "Zero cogging, built-in phono stage", "Made in Malaysia", ["pop", "orchestral"], false],
+            [5, "MoFi Electronics UltraDeck", 2000, "10-inch Ultra tonearm, Delrin platter", "Engineered by Mobile Fidelity mastering team", "Made in USA", ["jazz", "orchestral"], false],
+            [5, "Rega Planar 8", 3500, "Skeletal foam core plinth, Neo PSU", "Featherweight rigidity and lightning transients", "Made in UK", ["jazz", "pop"], true],
+            [5, "Linn Majik LP12", 5000, "Karousel single-point bearing, suspended plinth", "The legendary Scottish turntable icon", "Made in UK", ["jazz"], false],
+            [5, "McIntosh MT2", 6000, "Belt-drive with glowing green platter", "Plug-and-play McIntosh vinyl luxury", "Made in USA", ["jazz", "pop"], false],
+            [5, "Bang & Olufsen Beogram 4000c", 12000, "Recreated tangential tracking turntable", "Iconic Jacob Jensen design with warm analog tone", "Made in Denmark", ["jazz", "pop"], true],
+            [5, "McIntosh MT10", 14000, "Magnetic bearing platter, analog speed meter", "Showstopping aesthetics and deep bass tracking", "Made in USA", ["jazz", "pop"], false],
+            [5, "Technics SL-1000R", 20000, "Reference coreless direct drive, 55lb chassis", "Broadcast-grade torque and zero wow/flutter", "Made in Japan", ["pop", "orchestral"], true],
+            [5, "TechDAS Air Force III", 30000, "Air bearing platter & vacuum LP hold-down", "Flattens warped records, silent background", "Made in Japan", ["orchestral", "jazz"], true],
+            [5, "Bang & Olufsen Beosystem 72-23", 65000, "Collector's Nordic Dawn vinyl system", "Bespoke pearl-blasted titanium and birch wood", "Made in Denmark", ["jazz", "pop"], true],
+            [5, "Gryphon Apollo Turntable", 150000, "Constrained-layer chassis, dual opposing motors", "Monumental analog stability and black noise floor", "Made in Denmark", ["orchestral", "jazz"], true],
+            [5, "TechDAS Air Force Zero", 450000, "Tungsten platter, full air suspension", "The absolute state-of-the-art in vinyl", "Made in Japan", ["orchestral", "jazz"], true],
 
-        const seriesSuffixes = ["Classic", "Reference", "Signature", "Prime", "Studio", "Apex", "Exquisite", "EVO", "Pro", "SE", "MkII"];
+            // 6: Power Conditioners (Entry to Summit)
+            [6, "Furman PST-8 Digital Station", 200, "SMP surge protection, LiFT linear EMI filtration", "Essential clean power for entry systems", "Designed in USA", ["pop", "jazz", "orchestral"], true],
+            [6, "Panamax MR4300", 350, "Automatic voltage monitoring, 9 filtered outlets", "Protects and lowers noise floor on a budget", "Designed in USA", ["pop", "jazz"], false],
+            [6, "AudioQuest PowerQuest 303", 450, "Linear noise dissipation, non-sacrificial surge", "Rack-mountable audiophile power foundation", "Designed in USA", ["jazz", "pop", "orchestral"], true],
+            [6, "iFi Audio PowerStation", 650, "Active Noise Cancellation II power bar", "Actively cancels AC line hum and RFI", "Designed in UK", ["jazz", "orchestral"], false],
+            [6, "AudioQuest Niagara 1200", 1000, " Low-Z power noise-dissipation system", "Blackens background without compressing amps", "Designed in USA", ["jazz", "pop", "orchestral"], true],
+            [6, "IsoTek EVO3 Aquarius", 2200, "6 independent conditioning stages, KERP", "Opens up soundstage air and micro-detail", "Made in UK", ["orchestral", "jazz"], false],
+            [6, "Torus Power AVR 15", 5000, "Massive Plitron toroidal isolation transformer", "Instantaneous current delivery for big amps", "Made in Canada", ["pop", "orchestral"], false],
+            [6, "PS Audio DirectStream P12", 6000, "Active AC regenerator, pure sine wave output", "Rebuilds clean regulated AC power from scratch", "Made in USA", ["jazz", "orchestral"], true],
+            [6, "McIntosh MPC1500", 7000, " Toroidal isolation power controller", "Silent isolation with iconic McIntosh meters", "Made in USA", ["jazz", "pop"], false],
+            [6, "Gryphon PowerZone 3.20", 17500, "HafnerTech crystalline power optimization", "Zero current limiting, expands 3D soundstage", "Made in Denmark", ["orchestral", "pop"], true],
+            [6, "Shunyata Everest 8000", 25000, "8-zone passive QR/BB reference conditioner", "Studio & mastering house reference standard", "Made in USA", ["orchestral", "jazz"], true],
+            [6, "Stromtank S 5000", 50000, "Lithium-iron-phosphate battery AC generator", "100% off-grid AC power, zero line noise", "Made in Germany", ["orchestral", "jazz"], true],
 
-        function getSystemWeekInfo() {
-            const now = new Date();
-            const startOfYear = new Date(now.getFullYear(), 0, 1);
-            const pastDays = (now - startOfYear) / 86400000;
+            // 7: Network Players (Entry to Summit)
+            [7, "WiiM Pro Plus Streamer", 220, "AKM 4493SEQ DAC, bit-perfect Tidal/Qobuz/Roon", "Giant-killer entry streamer with room correction", "Designed in USA", ["pop", "jazz", "orchestral"], true],
+            [7, "WiiM Ultra Touch Streamer", 330, "3.5-inch touchscreen, ESS ES9038Q2M, HDMI ARC", "Unbeatable feature set and sound under $350", "Designed in USA", ["pop", "jazz", "orchestral"], true],
+            [7, "Bluesound Node (2025)", 550, "BluOS multi-room high-res streamer, Dirac ready", "The gold standard of mid-fi streaming", "Designed in Canada", ["pop", "jazz"], true],
+            [7, "Eversolo DMP-A6 Master Edition", 1300, "6-inch LCD, femto clocks, dual SSD M.2 slot", "Stunning UI and transparent digital transport", "Made in China", ["pop", "orchestral"], true],
+            [7, "Cambridge Audio CXN100", 1100, "ESS ES9028Q2M, StreamMagic Gen-4 module", "Smooth, refined British network player", "Designed in UK", ["jazz", "pop"], false],
+            [7, "Eversolo DMP-A8", 2000, "AK4499EX DAC, R-2R analog volume control", "True reference all-in-one streamer/preamp", "Made in China", ["jazz", "orchestral"], false],
+            [7, "Lumin U2 Mini Transport", 2400, "DSD512 upsampling, Leedh Processing volume", "Rock-solid app and punchy digital delivery", "Made in Hong Kong", ["pop", "orchestral"], false],
+            [7, "HiFi Rose RS150B", 5000, "14.9-inch 4K touchscreen, linear power supply", "Showstopping visual display and rich tone", "Made in South Korea", ["jazz", "pop"], true],
+            [7, "Bang & Olufsen Beosound Core", 5000, "High-res Mozart streaming engine", "Effortless Tidal/Qobuz high-res streaming", "Made in Denmark", ["pop", "jazz"], true],
+            [7, "Aurender N200", 6300, "Solid-state caching playback, dual linear PSU", "Warm, organic, analog-like digital streaming", "Made in South Korea", ["jazz"], true],
+            [7, "Innuos Statement Next-Gen", 18000, "Custom motherboard, OCXO clock, 8 linear rails", "Extracts breathtaking realism from Qobuz/Tidal", "Made in Portugal", ["jazz", "orchestral"], true],
+            [7, "Taiko Audio SGM Extreme", 30000, "Dual Xeon CPUs, 280W passive copper cooling", "The undisputed summit of music servers", "Made in Netherlands", ["orchestral", "jazz"], true],
 
+            // 8: Power Cables (Entry $30 to Summit)
+            [8, "Pangea Audio AC-14SE MkII", 50, "Cardas Grade One Copper + OFC shielding", "Best $50 upgrade over stock power cords", "Designed in USA", ["jazz", "pop", "orchestral"], true],
+            [8, "AudioQuest NRG-Y3", 160, "Long-Grain Copper (LGC) semi-solid concentric", "Lowers background hum in entry systems", "Designed in USA", ["jazz", "pop"], true],
+            [8, "Kimber Kable PK14 Ascent", 390, "VariStrand hyper-pure copper, low inductance", "Clean, dynamic current transfer", "Made in USA", ["pop", "orchestral"], false],
+            [8, "Shunyata Venom V12 NR", 450, "OFE copper with built-in noise reduction filter", "Measurable medical-grade noise filtration", "Made in USA", ["jazz", "orchestral"], true],
+            [8, "AudioQuest Monsoon", 550, "Perfect-Surface Copper+ (PSC+), ZERO-Tech", "Uncompressed transient current delivery", "Designed in USA", ["pop", "jazz"], false],
+            [8, "Nordost Heimdall 2 Power", 1000, "Micro Mono-Filament, FEP extruded insulation", "Lightning-fast speed and air", "Made in USA", ["pop", "orchestral"], false],
+            [8, "Cardas Clear Beyond Power", 3800, "Matched Propagation copper, toroidal filter", "Lush, full-bodied power for big amplifiers", "Made in USA", ["jazz"], true],
+            [8, "Gryphon Vanta Power", 6000, "Silver-Gold alloy conductors, PTFE insulation", "Unrestricted current delivery and black background", "Made in Denmark", ["pop", "orchestral"], true],
+            [8, "Nordost Odin 2 Power", 17000, "Total Signal Control, Holo:Plug connectors", "Zero impedance, ultimate transparency", "Made in USA", ["orchestral"], false],
+            [8, "Kharma Enigma Veyron Power", 22000, "Pure silver-gold conductors, carbon housing", "Extreme isolation and effortless dynamic flow", "Made in Netherlands", ["orchestral", "jazz"], true],
+
+            // 9: XLR Cables (Entry $40 to Summit)
+            [9, "World's Best Cables Mogami 2549 XLR", 50, "Neglex Oxygen-Free Copper, Neutrik Gold XLRs", "Studio-standard balanced neutrality for $50", "Assembled in USA", ["jazz", "pop", "orchestral"], true],
+            [9, "Blue Jeans Cable Canare L-4E6S XLR", 80, "Star-quad braided shield, Neutrik connectors", "Bulletproof RF rejection and zero coloration", "Made in USA", ["orchestral", "pop"], true],
+            [9, "AudioQuest Red River XLR", 230, "Solid Perfect-Surface Copper, nitrogen-injected", "Smooth, grain-free mid-fi interconnect", "Designed in USA", ["jazz", "pop"], false],
+            [9, "Kimber Kable Hero XLR", 420, "4-wire braided VariStrand copper, Switchcraft XLR", "Holographic imaging and warm midrange", "Made in USA", ["jazz"], true],
+            [9, "Cardas Iridium XLR", 450, "Golden Ratio Litz copper, star-quad geometry", "Rich, forgiving, and deeply musical", "Made in USA", ["jazz"], true],
+            [9, "AudioQuest Water XLR", 1000, "Solid PSC+ copper, 72V Dielectric-Bias System", "Silky vocal reproduction and deep bass", "Made in USA", ["jazz", "orchestral"], false],
+            [9, "Nordost Frey 2 XLR", 2200, "Silver-plated 99.99999% OFC, Mono-Filament", "Pinpoint transient focus and open highs", "Made in USA", ["pop", "orchestral"], false],
+            [9, "Cardas Clear XLR", 4000, "Matched Propagation conductors, air-tube suspension", "Effortless acoustic realism and warmth", "Made in USA", ["jazz", "orchestral"], true],
+            [9, "Gryphon Vanta XLR", 7000, "Silver-Gold balanced interconnect", "Zero grain, holographic staging", "Made in Denmark", ["orchestral", "pop"], true],
+            [9, "Kharma Enigma Veyron XLR", 25000, "Cryo-treated silver-gold balanced cable", "Luxurious midrange density and air", "Made in Netherlands", ["jazz", "orchestral"], true],
+
+            // 10: Optical / Digital Cables (Entry $25 to Summit)
+            [10, "Blue Jeans Cable Mitsubishi ESKA Optical", 25, "High-numerical-aperture polymethyl methacrylate", "Low-loss, low-jitter budget TOSLINK", "Made in USA", ["pop", "jazz", "orchestral"], true],
+            [10, "AudioQuest Pearl Optical", 45, "Low-dispersion fiber polymer core", "Clean, reliable starter optical link", "Designed in USA", ["pop", "jazz"], false],
+            [10, "Lifatec Silflex Glass Optical", 150, "470-strand opto-silk borosilicate glass fiber", "True glass optical core under $200", "Made in USA", ["jazz", "orchestral", "pop"], true],
+            [10, "AudioQuest Cinnamon Optical", 130, "Polished lower-dispersion high-purity fiber", "Tighter timing and reduced digital glare", "Designed in USA", ["jazz", "pop"], false],
+            [10, "Wireworld Supernova 7 Glass", 380, "338 borosilicate glass fiber conductors, micro-polished", "Reference glass TOSLINK transmission", "Made in USA", ["orchestral", "jazz"], true],
+            [10, "AudioQuest Diamond Digital", 1000, "100% Perfect-Surface Silver digital link", "Eliminates digital harshness", "Made in USA", ["jazz", "orchestral"], false],
+            [10, "Shunyata Sigma Digital", 2000, "TAP polarizer & CMode noise filter", "Liquid, analog-like digital timing", "Made in USA", ["jazz"], false],
+            [10, "Gryphon Vanta Digital", 4000, "Precision 75/110-ohm digital link", "Eliminates timing jitter and glare", "Made in Denmark", ["orchestral", "pop"], true],
+            [10, "Wadax Akasa Optical System", 15000, "Bespoke optical transceiver link", "Zero electrical noise floor", "Made in Spain", ["orchestral", "jazz"], true],
+
+            // 11: RCA Cables (Entry $30 to Summit)
+            [11, "Blue Jeans Cable LC-1 RCA", 45, "Ultra-low capacitance (12pF/ft) double-braid", "Engineered specifically for phono & line stages", "Made in USA", ["jazz", "pop", "orchestral"], true],
+            [11, "World's Best Cables Mogami 2964 RCA", 40, "Japanese OFC coaxial, Amphenol gold RCAs", "Transparent, uncolored budget interconnect", "Assembled in USA", ["pop", "orchestral"], false],
+            [11, "AudioQuest Golden Gate RCA", 110, "Solid Perfect-Surface Copper, foamed-PE", "Warm, articulate step-up RCA cable", "Designed in USA", ["jazz", "pop"], true],
+            [11, "Kimber Kable Timbre RCA", 260, "Tri-braid VariStrand copper, Ultraplate RCAs", "Open 3D soundstage and sweet treble", "Made in USA", ["jazz", "orchestral"], false],
+            [11, "Cardas Parsec RCA", 420, "Golden Ratio Kevlar-core Litz copper", "Classic Cardas midrange warmth under $500", "Made in USA", ["jazz"], true],
+            [11, "AudioQuest Earth RCA", 1000, "Solid PSC+ Copper, 72V DBS, triple-balanced", "Authoritative bass weight and black background", "Made in USA", ["jazz", "pop"], false],
+            [11, "ATM (Air Tight) Reference RCA", 3000, "High-purity OCC Copper tube interconnect", "Tailored for vacuum tube preamps and amps", "Made in Japan", ["jazz"], true],
+            [11, "Cardas Clear Reflection RCA", 3200, "Matched Propagation copper, forged copper RCAs", "Lush, holographic, and forgiving", "Made in USA", ["jazz"], true],
+            [11, "Gryphon Vanta RCA", 6000, "Silver-Gold single-ended interconnect", "Liquid, natural harmonic decay", "Made in Denmark", ["jazz", "orchestral"], true],
+            [11, "Siltech Triple Crown RCA", 15000, "Monocrystal silver, air/Teflon insulation", "Breathtaking harmonic purity", "Made in Netherlands", ["jazz", "orchestral"], false],
+            [11, "Kharma Enigma Veyron RCA", 24000, "Flagship Dutch single-ended interconnect", "Unmatched tonal purity", "Made in Netherlands", ["jazz", "orchestral"], true],
+
+            // 12: Speaker Cables (Entry $50 to Summit)
+            [12, "Micca Pure Copper 14AWG Speaker Pair", 45, "245-strand oxygen-free copper, gold banana plugs", "Clean, reliable starter speaker wire", "Assembled in USA", ["pop", "jazz"], false],
+            [12, "Blue Jeans Cable Canare 4S11 (Pair)", 140, "11AWG equivalent star-quad, ultrasonic-welded bananas", "Zero-compromise engineering for $140", "Made in USA", ["pop", "jazz", "orchestral"], true],
+            [12, "AudioQuest Rocket 11 (Pair)", 250, "Semi-Solid True-Concentric Long-Grain Copper", "Smooths out treble grain in entry systems", "Designed in USA", ["jazz", "pop"], true],
+            [12, "Kimber Kable 8PR (Pair)", 380, "16-conductor
